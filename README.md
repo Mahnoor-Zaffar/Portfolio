@@ -12,3 +12,4 @@ Mahnoor Zaffar, I’m a seasoned web developer with a strong focus on JavaScript
 - `assets/images/` - local image assets used by the page.
 - `assets/vendor/` - third-party or exported vendor scripts kept for reference.
 - `docs/CNAME` - custom domain configuration.
+I am a Full-Stack Web Developer with 1+ year of experience in modern web technologies. I specialize in building responsive, scalable, and user-friendly web applications using Python and JavaScript, with a strong focus on clean code, backend development, frontend interfaces, and practical business-focused solutions.

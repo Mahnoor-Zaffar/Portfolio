@@ -625,15 +625,36 @@ iframe {
     overflow: hidden !important;
   }
 
+  .velocity-text {
+    width: 100% !important;
+    display: block !important;
+  }
+
   .velocity-text .text-line,
   .velocity-text .whitespace-nowrap {
     white-space: nowrap !important;
     width: max-content !important;
     flex-wrap: nowrap !important;
+    line-height: 1 !important;
   }
 
   .velocity-text .text-line > span {
     flex: 0 0 auto !important;
+  }
+
+  .velocity-text:first-of-type .text-line {
+    font-size: clamp(1.8rem, 8vw, 3.25rem) !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  .velocity-text:last-of-type .text-line {
+    font-size: clamp(1.25rem, 6vw, 2.4rem) !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .w-full.py-8.transform.rotate-\[-10deg\].origin-center {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
   }
 
   .rotate-\[-10deg\] {
