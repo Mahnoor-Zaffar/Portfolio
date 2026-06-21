@@ -1,37 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mahnoor Zaffar - Web Developer, Full-stack Software Developer &  AI Engineer</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mahnoor Zaffar — Full-Stack Web Developer & AI Engineer</title>
 
-  <meta name="description" content="Mahnoor Zaffar, I’m a seasoned web developer with a strong focus on JavaScript and backend technologies. Having mastered the server side, I’m now diving deep into AI to push my development even further, as an AI Engineer & Python Specialist with 1+ years of experience in FinTech & HealthTech. Specializing in RAG, MLOps, and Full-Stack AI solutions." />
-  <meta name="keywords" content="Mahnoor Zaffar, Web Developer, Software Engineer - Full-stack, AI Engineer, Python & Javascript Specialist, Machine Learning, RAG, Full-Stack AI." />
-  <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="Mahnoor Zaffar — Full-Stack Web Developer & AI Engineer specializing in Python, TypeScript, React, RAG and MLOps. Building responsive, scalable, production-ready applications in FinTech & HealthTech."
+    />
+    <meta
+      name="keywords"
+      content="Mahnoor Zaffar, Web Developer, Full-Stack Developer, AI Engineer, Python, TypeScript, React, RAG, MLOps, FinTech, HealthTech"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href="https://www.mahnoorzaffar.dev/" />
 
-  <meta property="og:title" content="Mahnoor Zaffar - AI Engineer" />
-  <meta property="og:description" content="Discover Mahnoor Zaffar's portfolio - an AI Engineer & Python Specialist with 1+ years in FinTech & HealthTech, specializing in RAG, MLOps, and predictive modeling." />
-  <meta property="og:image" content="./assets/images/personal.jpg" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Mahnoor Zaffar - AI Engineer" />
-  <meta name="twitter:description" content="Mahnoor Zaffar: AI Engineer & Python Specialist with 1+ years of experience in FinTech & HealthTech, building scalable Full-Stack AI solutions." />
-  <meta name="twitter:image" content="./assets/images/personal.jpg" />
+    <meta property="og:title" content="Mahnoor Zaffar — Full-Stack Web Developer & AI Engineer" />
+    <meta
+      property="og:description"
+      content="Full-Stack & AI Developer building production-ready solutions in Python, TypeScript and React, with a focus on RAG, MLOps and intuitive AI-powered experiences."
+    />
+    <meta property="og:image" content="/images/personal.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.mahnoorzaffar.dev/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mahnoor Zaffar — Full-Stack Web Developer & AI Engineer" />
+    <meta
+      name="twitter:description"
+      content="Full-Stack & AI Developer building production-ready solutions in Python, TypeScript and React."
+    />
+    <meta name="twitter:image" content="/images/personal.jpg" />
 
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="./assets/css/main.css" as="style" />
-  <link rel="modulepreload" href="./assets/js/app.js" crossorigin />
-  <link rel="preload" href="./assets/images/personal.jpg" as="image" />
-  <link rel="icon" type="image/png" href="https://www.votruong.info/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <link rel="stylesheet" crossorigin href="./assets/css/main.css" />
-  <link rel="stylesheet" href="./assets/css/custom-overrides.css" />
-  <script type="module" defer crossorigin src="./assets/js/app.js"></script>
-  <script defer src="./assets/js/runtime-optimizations.js"></script>
-</head>
-<body>
-  <div id="root"></div>
-</body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Nunito:wght@500;600;700;800&display=swap"
+    />
+
+    <!-- Set theme before paint to avoid a flash of the wrong color scheme. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var dark = stored ? stored === "dark" : prefersDark;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

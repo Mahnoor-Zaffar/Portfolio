@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Ollama-inspired semantic palette (see DESIGN.md).
+ * Light = paper-white canvas + ink; dark = inverted. The pill CTA system
+ * flips automatically: --primary/--on-primary swap so a black pill on light
+ * becomes a white pill on dark.
+ */
+@layer base {
+  :root {
+    --canvas: #ffffff;
+    --surface-soft: #fafafa;
+    --surface-card: #ffffff;
+    --surface-dark: #171717;
+
+    --ink: #000000;
+    --ink-deep: #090909;
+    --charcoal: #525252;
+    --body: #737373;
+    --mute: #a3a3a3;
+
+    --hairline: #e5e5e5;
+    --hairline-strong: #d4d4d4;
+
+    --primary: #000000;
+    --on-primary: #ffffff;
+
+    color-scheme: light;
+  }
+
+  .dark {
+    --canvas: #0a0a0a;
+    --surface-soft: #141414;
+    --surface-card: #161616;
+    --surface-dark: #161616;
+
+    --ink: #fafafa;
+    --ink-deep: #ffffff;
+    --charcoal: #d4d4d4;
+    --body: #a3a3a3;
+    --mute: #6b6b6b;
+
+    --hairline: #262626;
+    --hairline-strong: #333333;
+
+    --primary: #fafafa;
+    --on-primary: #0a0a0a;
+
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: var(--hairline);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-fluid-base text-body antialiased;
+    margin: 0;
+    overflow-x: hidden;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--ink);
+    color: var(--canvas);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.6);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8;
+  }
+
+  /* The universal pill CTA. Inverts automatically with the theme. */
+  .pill {
+    @apply inline-flex h-9 items-center justify-center gap-2 rounded-pill px-5 text-fluid-sm font-medium transition-transform duration-200 ease-snappy;
+  }
+  .pill-primary {
+    @apply pill bg-primary text-on-primary hover:scale-[0.97];
+  }
+  .pill-ghost {
+    @apply pill border border-hairline-strong bg-canvas text-ink hover:bg-surface-soft;
+  }
+
+  /* Flat card: hairline border, no shadow — depth via color, not elevation. */
+  .card {
+    @apply rounded-lg border border-hairline bg-surface-card transition-colors duration-300;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-pill border border-hairline bg-surface-soft px-3 py-1.5 font-mono text-fluid-caption text-charcoal;
+  }
+
+  .eyebrow {
+    @apply font-mono text-fluid-caption uppercase tracking-[0.18em] text-mute;
+  }
+
+  .hairline-top {
+    @apply border-t border-hairline;
+  }
+}
+
+/* Reveal: content is visible by default; the .reveal-init state is applied
+   only via JS when motion is allowed, so nothing is ever hidden without JS. */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
