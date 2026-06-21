@@ -1,38 +1,48 @@
 import { contact, profile, socials } from "@/content/site";
-import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/Reveal";
 
 export function Contact() {
   return (
-    <Section id="contact" className="rounded-panel bg-ink text-white">
-      <Reveal stagger className="flex flex-col items-center gap-6 text-center">
-        <h2 className="text-fluid-3xl font-bold">{contact.heading}</h2>
-        <p className="max-w-prose text-fluid-lg text-white/70">{contact.message}</p>
+    <section id="contact" className="scroll-mt-20 py-section">
+      <div className="shell">
+        {/* The single inverted "look here" surface in the system. */}
+        <Reveal className="rounded-xl bg-surface-dark px-6 py-14 text-center sm:px-12 sm:py-20">
+          <span className="font-mono text-fluid-caption uppercase tracking-[0.18em] text-on-dark-mute">
+            // 05 — contact
+          </span>
+          <h2 className="mt-4 font-display text-fluid-2xl font-bold text-on-dark">
+            {contact.heading}
+            <span className="text-term-green">.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-reading text-fluid-lg text-on-dark-mute">
+            {contact.message}
+          </p>
 
-        <a
-          href={`mailto:${profile.email}`}
-          className="font-display text-fluid-xl font-medium text-white underline-offset-8 transition-colors hover:text-brand hover:underline"
-        >
-          {profile.email}
-        </a>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mt-8 inline-flex items-center gap-2 rounded-pill bg-canvas px-7 py-3.5 font-mono text-fluid-sm font-medium text-ink transition-transform duration-200 hover:scale-[0.97]"
+          >
+            <span className="text-term-green">$</span> {profile.email}
+          </a>
 
-        <ul className="mt-4 flex flex-wrap items-center justify-center gap-3">
-          {socials.map((social) => (
-            <li key={social.label}>
-              <a
-                href={social.href}
-                target={social.href.startsWith("http") ? "_blank" : undefined}
-                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="inline-block rounded-full border border-white/15 px-5 py-2.5 text-fluid-sm font-medium text-white/80 transition-colors hover:border-white hover:text-white"
-              >
-                {social.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            {socials.map((social) => (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="inline-block rounded-pill border border-white/15 px-5 py-2.5 text-fluid-sm font-medium text-on-dark-mute transition-colors hover:border-white/60 hover:text-on-dark"
+                >
+                  {social.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        <p className="mt-8 text-fluid-sm text-white/50">{contact.closing}</p>
-      </Reveal>
-    </Section>
+          <p className="mt-10 font-mono text-fluid-caption text-on-dark-mute">{contact.closing}</p>
+        </Reveal>
+      </div>
+    </section>
   );
 }

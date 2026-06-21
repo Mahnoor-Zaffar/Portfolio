@@ -1,23 +1,31 @@
 import { services } from "@/content/site";
-import { Section } from "@/components/ui/Section";
+import { Section, SectionHeading } from "@/components/ui/Section";
 import { Reveal } from "@/components/Reveal";
 
 export function Services() {
   return (
-    <Section id="services">
-      <Reveal className="max-w-prose">
-        <h2 className="text-fluid-2xl font-bold">{services.heading}</h2>
-        <p className="mt-5 text-fluid-lg text-ink-muted">{services.description}</p>
-      </Reveal>
+    <Section id="services" className="border-b border-hairline">
+      <SectionHeading
+        index="// 03 — services"
+        title={services.heading}
+        description={services.description}
+      />
 
       <Reveal stagger className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {services.items.map((service, index) => (
-          <article key={service.title} className="card flex flex-col gap-4 p-7">
-            <span className="font-display text-fluid-xl font-semibold text-brand">
+          <article key={service.title} className="card group flex flex-col gap-4 p-7">
+            <span className="font-mono text-fluid-sm text-mute">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="text-fluid-lg font-semibold">{service.title}</h3>
-            <p className="text-fluid-base text-ink-muted">{service.description}</p>
+            <h3 className="text-fluid-lg font-semibold text-ink">{service.title}</h3>
+            <p className="flex-grow text-fluid-base text-body">{service.description}</p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {service.tags.map((tag) => (
+                <span key={tag} className="chip">
+                  {tag}
+                </span>
+              ))}
+            </div>
           </article>
         ))}
       </Reveal>

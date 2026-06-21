@@ -1,53 +1,126 @@
-import { hero, profile } from "@/content/site";
-import { Reveal } from "@/components/Reveal";
+import { useEffect, useRef } from "react";
+import { hero, profile, stats } from "@/content/site";
+import { StatCounter } from "@/components/StatCounter";
+import { TerminalCard } from "@/components/TerminalCard";
+import { createTimeline, stagger, prefersReducedMotion } from "@/lib/anime";
 
 export function Hero() {
+  const cmdRef = useRef<HTMLSpanElement>(null);
+  const linesRef = useRef<HTMLUListElement>(null);
+  const headRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cmdEl = cmdRef.current;
+    const linesEl = linesRef.current;
+    const headEl = headRef.current;
+    if (!cmdEl || !linesEl || !headEl) return;
+
+    const command = hero.terminal.command;
+    const lineNodes = Array.from(linesEl.children) as HTMLElement[];
+    const headNodes = Array.from(headEl.children) as HTMLElement[];
+
+    if (prefersReducedMotion()) {
+      cmdEl.textContent = command;
+      lineNodes.forEach((n) => (n.style.opacity = "1"));
+      return;
+    }
+
+    cmdEl.textContent = "";
+    lineNodes.forEach((n) => (n.style.opacity = "0"));
+    headNodes.forEach((n) => (n.style.opacity = "0"));
+
+    const typing = { i: 0 };
+    const tl = createTimeline();
+
+    tl.add(headNodes, {
+      opacity: [0, 1],
+      translateY: [20, 0],
+      duration: 700,
+      delay: stagger(110),
+      ease: "outExpo",
+    })
+      .add(
+        typing,
+        {
+          i: command.length,
+          duration: command.length * 85,
+          ease: "linear",
+          onUpdate: () => {
+            cmdEl.textContent = command.slice(0, Math.round(typing.i));
+          },
+        },
+        "-=300",
+      )
+      .add(lineNodes, {
+        opacity: [0, 1],
+        translateX: [-10, 0],
+        duration: 260,
+        delay: stagger(110),
+        ease: "outQuad",
+      });
+
+    return () => {
+      tl.revert?.();
+    };
+  }, []);
+
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] items-center overflow-hidden rounded-b-panel bg-canvas"
+      className="relative overflow-hidden border-b border-hairline pb-section pt-28 sm:pt-32"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(68,118,232,0.12),transparent)]"
-      />
-      <div className="shell relative w-full pt-28 pb-16 text-center">
-        <Reveal stagger className="flex flex-col items-center gap-4">
-          <p className="text-fluid-sm font-medium uppercase tracking-[0.3em] text-ink-muted">
-            {hero.greeting}
-          </p>
-          <h1 className="font-display text-fluid-hero font-bold leading-[0.95]">
-            <span className="text-ink-muted">{hero.intro} </span>
-            <span className="bg-gradient-to-br from-brand to-ink bg-clip-text text-transparent">
-              {profile.fullName}
-            </span>
+      <div className="shell grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div ref={headRef}>
+          <span className="chip text-term-green">
+            <span className="h-1.5 w-1.5 rounded-pill bg-term-green" />
+            {profile.status}
+          </span>
+          <p className="eyebrow mt-6">{hero.eyebrow}</p>
+          <h1 className="mt-3 font-display text-fluid-hero font-extrabold leading-[0.95] tracking-tight">
+            {profile.firstName}
+            <br />
+            {profile.lastName}
+            <span className="text-term-green">.</span>
           </h1>
-          <p className="max-w-prose text-fluid-lg text-ink-muted">{hero.tagline}</p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#contact"
-              className="rounded-full bg-ink px-7 py-3 text-fluid-base font-medium text-white transition-transform hover:scale-95"
-            >
+          <p className="mt-6 max-w-reading text-fluid-lg text-body">{hero.tagline}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#contact" className="pill-primary h-11 px-7 text-fluid-base">
               Get in touch
             </a>
-            <a
-              href="#services"
-              className="rounded-full border border-ink/15 px-7 py-3 text-fluid-base font-medium transition-colors hover:bg-ink hover:text-white"
-            >
-              View services
+            <a href="#experience" className="pill-ghost h-11 px-7 text-fluid-base">
+              View experience
             </a>
           </div>
-        </Reveal>
+        </div>
+
+        <TerminalCard title={`${profile.handle} — zsh`}>
+          <div className="flex items-center gap-2 text-ink">
+            <span className="text-term-green">➜</span>
+            <span className="text-mute">~</span>
+            <span>
+              <span ref={cmdRef} />
+              <span className="ml-0.5 inline-block w-2 animate-pulse text-term-green">▌</span>
+            </span>
+          </div>
+          <ul ref={linesRef} className="mt-3 space-y-1.5">
+            {hero.terminal.lines.map((line) => {
+              const [key, ...rest] = line.split(/\s{2,}/);
+              return (
+                <li key={line} className="flex gap-3 text-charcoal">
+                  <span className="w-24 shrink-0 text-mute">{key}</span>
+                  <span className="text-ink">{rest.join(" ")}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </TerminalCard>
       </div>
 
-      <a
-        href="#about"
-        aria-label="Scroll to about section"
-        className="absolute inset-x-0 bottom-6 mx-auto flex w-fit flex-col items-center gap-2 text-ink-muted"
-      >
-        <span className="text-[0.7rem] uppercase tracking-[0.25em]">{hero.scrollHint}</span>
-        <span className="h-10 w-px bg-gradient-to-b from-brand to-transparent" />
-      </a>
+      <div className="shell mt-16 grid grid-cols-2 gap-8 border-t border-hairline pt-10 sm:grid-cols-4">
+        {stats.map((stat) => (
+          <StatCounter key={stat.label} value={stat.value} label={stat.label} />
+        ))}
+      </div>
     </section>
   );
 }

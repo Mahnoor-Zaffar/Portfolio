@@ -51,8 +51,26 @@ inclusive design rather than visual gimmicks.
 | UI library     | React 18                                                |
 | Language       | TypeScript (strict mode)                                |
 | Styling        | Tailwind CSS 3 with a token-driven `tailwind.config.ts` |
-| Animation      | GSAP + ScrollTrigger via `@gsap/react` (`useGSAP`)      |
+| Design system  | Ollama-inspired language documented in `DESIGN.md`      |
+| Animation      | anime.js v4 (`animate`, `stagger`, timelines)           |
+| Theming        | Class-based light/dark with no-FOUC inline script       |
 | Quality gates  | ESLint (flat config, zero-warning policy) + Prettier    |
+
+### Design language
+
+The UI follows an Ollama-inspired, documentation-first design language captured
+in [`DESIGN.md`](DESIGN.md): a flat paper canvas, ink + neutral grays, pill
+geometry for interactive elements, hairline-bordered cards (no shadows), and a
+single inverted dark surface used once per page as the contact call-to-action.
+Headings use Nunito, body uses Inter, and code/terminal UI uses JetBrains Mono.
+
+### Theming
+
+Light and dark themes are defined as CSS variables in `src/styles/index.css` and
+switched by toggling a `.dark` class on `<html>`. The pill CTA palette inverts
+automatically. An inline script in `index.html` applies the stored or
+system-preferred theme before first paint to avoid a flash, and `useTheme`
+keeps React in sync and persists the user's choice to `localStorage`.
 
 ## Architecture & Principles
 
@@ -103,31 +121,38 @@ src/
 ├── main.tsx                 # Application entry point
 ├── App.tsx                  # Section composition + skip-to-content link
 ├── styles/
-│   └── index.css            # Tailwind layers, base styles, self-hosted fonts
+│   └── index.css            # Tailwind layers, base styles, light/dark tokens
 ├── content/
 │   └── site.ts              # All copy and data (single source of truth)
 ├── lib/
-│   └── gsap.ts              # One-time GSAP/plugin registration + motion helper
+│   └── anime.ts             # anime.js re-exports + reduced-motion guard
+├── hooks/
+│   └── useTheme.ts          # Theme state synced to <html> + localStorage
 ├── components/
-│   ├── Reveal.tsx           # Scroll-reveal wrapper (progressive enhancement)
+│   ├── Reveal.tsx           # Scroll-reveal wrapper (anime.js + IO)
+│   ├── ThemeToggle.tsx      # Animated light/dark switch
+│   ├── TerminalCard.tsx     # Reusable terminal mockup (traffic lights)
+│   ├── StatCounter.tsx      # Count-up stat animation
 │   ├── BackToTop.tsx        # Scroll-to-top control
 │   ├── ui/
-│   │   └── Section.tsx      # Shared section shell
+│   │   └── Section.tsx      # Section shell + documentation-style heading
 │   └── layout/
-│       ├── Header.tsx       # Sticky navigation (with mobile menu)
+│       ├── Header.tsx       # Sticky nav (terminal brand, theme, mobile menu)
 │       └── Footer.tsx
 └── features/                # One folder per page section
-    ├── hero/
+    ├── hero/                # Animated "whoami" terminal + stats
     ├── about/
+    ├── experience/          # Experience & focus timeline
     ├── services/
-    ├── skills/
-    └── contact/
+    ├── skills/              # Interactive terminal-style skill explorer
+    └── contact/             # Inverted dark CTA surface
 
 public/
 ├── favicon.svg
-├── fonts/                   # Self-hosted web fonts
+├── fonts/                   # (optional) self-hosted web fonts
 └── images/                  # Portrait and optimized variants
 
+DESIGN.md                    # Design-language reference (Ollama-inspired)
 _legacy/                     # Previous build artifact, retained for reference
 ```
 
@@ -155,8 +180,8 @@ export const profile = {
 - **Layout stability** — the portrait declares explicit dimensions and an
   `aspect-ratio`, and is served via `<picture>` with AVIF/WebP sources to
   minimize Cumulative Layout Shift.
-- **Self-hosted fonts** — loaded with `font-display: swap` and a `system-ui`
-  fallback; no render-blocking third-party imports.
+- **Fonts** — loaded via Google Fonts with `preconnect` and `font-display: swap`
+  and a `system-ui` fallback (optionally self-hostable — see Roadmap).
 - **Accessibility** — semantic landmarks, a skip-to-content link, keyboard-
   visible focus states, `aria` labelling on interactive controls, and full
   `prefers-reduced-motion` support.
@@ -179,9 +204,8 @@ Vercel). The previous artifact build is preserved under `_legacy/` and tagged
 The following items require external assets or content and are tracked as
 follow-ups:
 
-- [ ] Add self-hosted font files to `public/fonts/`
-      (`ClashDisplay-Variable.woff2` and a Bricolage Grotesque file). The CSS
-      already references them and falls back to `system-ui` until provided.
+- [ ] (Optional) Self-host the Nunito / Inter / JetBrains Mono fonts in
+      `public/fonts/` to remove the Google Fonts dependency entirely.
 - [ ] Generate optimized portrait variants `public/images/personal.avif` and
       `public/images/personal.webp` (the markup already prefers them) and
       re-export the source JPG under ~150 KB.

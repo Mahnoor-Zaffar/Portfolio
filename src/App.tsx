@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/BackToTop";
 import { Hero } from "@/features/hero/Hero";
 import { About } from "@/features/about/About";
+import { Experience } from "@/features/experience/Experience";
 import { Services } from "@/features/services/Services";
 import { Skills } from "@/features/skills/Skills";
 import { Contact } from "@/features/contact/Contact";
@@ -12,7 +13,7 @@ export default function App() {
     <>
       <a
         href="#home"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-pill focus:bg-primary focus:px-4 focus:py-2 focus:text-on-primary"
       >
         Skip to content
       </a>
@@ -21,6 +22,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
+        <Experience />
         <Services />
         <Skills />
         <Contact />
