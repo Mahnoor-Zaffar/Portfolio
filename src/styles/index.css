@@ -19,7 +19,7 @@
     --ink-deep: #090909;
     --charcoal: #525252;
     --body: #737373;
-    --mute: #a3a3a3;
+    --mute: #6f6f6f; /* WCAG AA (4.5:1) on canvas + surface-soft */
 
     --hairline: #e5e5e5;
     --hairline-strong: #d4d4d4;
@@ -40,7 +40,7 @@
     --ink-deep: #ffffff;
     --charcoal: #d4d4d4;
     --body: #a3a3a3;
-    --mute: #6b6b6b;
+    --mute: #8a8a8a; /* WCAG AA (4.5:1) on dark canvas + cards */
 
     --hairline: #262626;
     --hairline-strong: #333333;
