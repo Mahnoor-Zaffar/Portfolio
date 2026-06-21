@@ -37,7 +37,7 @@ export const profile = {
    * Optional résumé download. Drop a PDF in `public/` (e.g. public/resume.pdf)
    * and set this to its path (e.g. "/resume.pdf"). Empty = button hidden.
    */
-  resumeUrl: "",
+  resumeUrl: "/resume.pdf",
 } as const;
 
 export const nav: NavLink[] = [

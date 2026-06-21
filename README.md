@@ -281,7 +281,7 @@ Shipped:
 
 Optional, owner-action follow-ups:
 
-- [ ] Add a résumé PDF (`public/resume.pdf`) and set `profile.resumeUrl` to show
+- [x] Add a résumé PDF (`public/resume.pdf`) and set `profile.resumeUrl` to show
       the hero download button.
 - [ ] Enable analytics by setting `VITE_GOATCOUNTER_CODE`.
 - [ ] Front the domain with a CDN (e.g. Cloudflare) for long-lived asset caching
