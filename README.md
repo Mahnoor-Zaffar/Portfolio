@@ -148,7 +148,8 @@ src/
     └── contact/             # Inverted dark CTA surface
 
 public/
-├── favicon.svg
+├── favicon-32.png           # Brand favicon (+ favicon-180 / icon-192 / icon-512)
+├── site.webmanifest
 ├── CNAME                    # Custom domain for GitHub Pages
 └── images/                  # Portrait — AVIF/WebP/JPG variants
                              # (fonts are self-hosted via Fontsource in src/main.tsx)
