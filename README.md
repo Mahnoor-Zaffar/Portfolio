@@ -208,10 +208,9 @@ The email template should reference these variables: `{{from_name}}`,
 
 Because this is a static client app, these keys ship in the bundle either way,
 so committed defaults live in [`src/lib/emailjs.ts`](src/lib/emailjs.ts) and the
-form works out of the box. The env vars above are **optional overrides** for
-local testing or key rotation (copy [`.env.example`](.env.example) to
-`.env.local`); the deploy workflow also forwards them as GitHub Actions secrets
-if you set them.
+form works out of the box in production. The env vars above are **optional
+overrides** for local testing or key rotation — copy [`.env.example`](.env.example)
+to `.env.local` and set them (a non-empty value wins over the default).
 
 **Abuse protection** comes from the domain allow-list in EmailJS → Account →
 Security (restricted to `mahnoorzaffar.dev`), not from key secrecy. If the

@@ -9,10 +9,12 @@
  * Defaults below keep the production build working with zero CI config; an
  * env var (e.g. `.env.local`) overrides them for local testing or rotation.
  */
+// `||` (not `??`) so a blank env var — e.g. an empty CI secret — still falls
+// back to the committed default instead of disabling the form.
 export const emailjsConfig = {
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID ?? "service_nthwmce",
-  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID ?? "template_vlxoxx8",
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? "L3bBigINQL_lXTNFM",
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_nthwmce",
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_vlxoxx8",
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "L3bBigINQL_lXTNFM",
 };
 
 /** True only when all three values are present, so the form can fall back. */
