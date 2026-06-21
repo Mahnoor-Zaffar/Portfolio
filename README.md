@@ -206,14 +206,14 @@ follow-ups:
 
 - [ ] (Optional) Self-host the Nunito / Inter / JetBrains Mono fonts in
       `public/fonts/` to remove the Google Fonts dependency entirely.
-- [ ] Generate optimized portrait variants `public/images/personal.avif` and
-      `public/images/personal.webp` (the markup already prefers them) and
-      re-export the source JPG under ~150 KB.
+- [ ] Re-export the portrait under ~150 KB and add optimized `.avif` / `.webp`
+      variants (the section currently uses `personal.jpg` directly).
 - [ ] Add a **Projects** section once project content is available. The previous
       build's project list belonged to the original template author and was
       intentionally excluded.
-- [ ] Wire the contact section to a form provider (e.g. EmailJS or Formspree)
-      with client-side validation and success/error states.
+- [ ] Upgrade the contact form from the current `mailto:` flow to server-side
+      delivery (e.g. Formspree or EmailJS) so messages send without opening a
+      mail client.
 
 ---
 
