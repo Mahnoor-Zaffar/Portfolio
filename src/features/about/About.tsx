@@ -10,15 +10,19 @@ export function About() {
       <div className="mt-12 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <Reveal>
           <div className="card overflow-hidden p-2">
-            <img
-              src="/images/personal.jpg"
-              alt={`Portrait of ${profile.fullName}`}
-              width={960}
-              height={1200}
-              loading="lazy"
-              decoding="async"
-              className="w-full rounded-md object-cover [aspect-ratio:4/5]"
-            />
+            <picture>
+              <source srcSet="/images/personal.avif" type="image/avif" />
+              <source srcSet="/images/personal.webp" type="image/webp" />
+              <img
+                src="/images/personal.jpg"
+                alt={`Portrait of ${profile.fullName}`}
+                width={864}
+                height={1184}
+                loading="lazy"
+                decoding="async"
+                className="w-full rounded-md object-cover [aspect-ratio:864/1184]"
+              />
+            </picture>
           </div>
         </Reveal>
 

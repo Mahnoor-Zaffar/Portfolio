@@ -41,9 +41,9 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Nunito"', "system-ui", "-apple-system", "sans-serif"],
-        sans: ['"Inter"', "system-ui", "-apple-system", "sans-serif"],
-        mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+        display: ['"Nunito Variable"', "system-ui", "-apple-system", "sans-serif"],
+        sans: ['"Inter Variable"', "system-ui", "-apple-system", "sans-serif"],
+        mono: ['"JetBrains Mono Variable"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       fontSize: {
         "fluid-caption": "clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem)",

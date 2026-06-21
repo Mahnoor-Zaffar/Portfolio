@@ -149,8 +149,9 @@ src/
 
 public/
 ├── favicon.svg
-├── fonts/                   # (optional) self-hosted web fonts
-└── images/                  # Portrait and optimized variants
+├── CNAME                    # Custom domain for GitHub Pages
+└── images/                  # Portrait — AVIF/WebP/JPG variants
+                             # (fonts are self-hosted via Fontsource in src/main.tsx)
 
 DESIGN.md                    # Design-language reference (Ollama-inspired)
 _legacy/                     # Previous build artifact, retained for reference
@@ -180,8 +181,11 @@ export const profile = {
 - **Layout stability** — the portrait declares explicit dimensions and an
   `aspect-ratio`, and is served via `<picture>` with AVIF/WebP sources to
   minimize Cumulative Layout Shift.
-- **Fonts** — loaded via Google Fonts with `preconnect` and `font-display: swap`
-  and a `system-ui` fallback (optionally self-hostable — see Roadmap).
+- **Fonts** — self-hosted via Fontsource (variable, weight-axis only) and
+  bundled by Vite; no third-party CDN, with a `system-ui` fallback. The browser
+  downloads only the needed subsets via `unicode-range`.
+- **Images** — the portrait ships as AVIF/WebP/JPG (~36–65 KB, down from
+  1.6 MB) via `<picture>`, regenerated with `npm run optimize:images`.
 - **Accessibility** — semantic landmarks, a skip-to-content link, keyboard-
   visible focus states, `aria` labelling on interactive controls, and full
   `prefers-reduced-motion` support.
@@ -204,10 +208,6 @@ Vercel). The previous artifact build is preserved under `_legacy/` and tagged
 The following items require external assets or content and are tracked as
 follow-ups:
 
-- [ ] (Optional) Self-host the Nunito / Inter / JetBrains Mono fonts in
-      `public/fonts/` to remove the Google Fonts dependency entirely.
-- [ ] Re-export the portrait under ~150 KB and add optimized `.avif` / `.webp`
-      variants (the section currently uses `personal.jpg` directly).
 - [ ] Add a **Projects** section once project content is available. The previous
       build's project list belonged to the original template author and was
       intentionally excluded.
