@@ -206,14 +206,16 @@ It needs three public (non-secret) values, configured in
 The email template should reference these variables: `{{from_name}}`,
 `{{reply_to}}`, `{{message}}`.
 
-- **Local dev:** copy [`.env.example`](.env.example) to `.env.local` and fill in
-  the values.
-- **Production:** add the three as **GitHub Actions secrets** (repo Settings →
-  Secrets and variables → Actions); the deploy workflow injects them at build.
+Because this is a static client app, these keys ship in the bundle either way,
+so committed defaults live in [`src/lib/emailjs.ts`](src/lib/emailjs.ts) and the
+form works out of the box. The env vars above are **optional overrides** for
+local testing or key rotation (copy [`.env.example`](.env.example) to
+`.env.local`); the deploy workflow also forwards them as GitHub Actions secrets
+if you set them.
 
-If the values are absent the form gracefully falls back to a pre-filled
-`mailto:` link, so it always works. Lock down abuse via the domain allowlist in
-EmailJS → Account → Security.
+**Abuse protection** comes from the domain allow-list in EmailJS → Account →
+Security (restricted to `mahnoorzaffar.dev`), not from key secrecy. If the
+config is ever cleared the form falls back to a pre-filled `mailto:` link.
 
 ## Deployment
 
