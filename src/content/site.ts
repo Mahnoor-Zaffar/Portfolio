@@ -144,6 +144,36 @@ export const projects: {
       tags: ["AI", "Real-time", "Speech-to-Text"],
       repo: "https://github.com/Mahnoor-Zaffar/Vocal-Flux",
     },
+    {
+      name: "Falling-Sand Simulator",
+      domain: "Graphics Engine",
+      tagline: "Real-time 2D material physics sandbox",
+      description:
+        "A cellular-automata sandbox in pure vanilla JS — a double-buffered Uint32Array grid and direct pixel-buffer blitting simulate falling sand, water dispersion and reactive fire at speed.",
+      tags: ["Vanilla JS", "Canvas", "Simulation"],
+      repo: "https://github.com/Mahnoor-Zaffar/The-2D-Falling-Sand-Physics-Simulator",
+      demo: "https://mahnoor-zaffar.github.io/The-2D-Falling-Sand-Physics-Simulator/",
+    },
+    {
+      name: "Tactical Rogue-Lite Engine",
+      domain: "Game Engine",
+      tagline: "Procedural maps, raycast fog-of-war & A*",
+      description:
+        "A zero-dependency 2D rogue-lite engine with procedural BSP map generation, real-time 360° raycasted line-of-sight (fog of war) and A* enemy pathfinding on HTML5 Canvas.",
+      tags: ["Vanilla JS", "Canvas", "Algorithms"],
+      repo: "https://github.com/Mahnoor-Zaffar/The-Tactical-Rogue-Lite-Engine",
+      demo: "https://mahnoor-zaffar.github.io/The-Tactical-Rogue-Lite-Engine/",
+    },
+    {
+      name: "PokéDex Card Trading",
+      domain: "Frontend",
+      tagline: "Animated Pokédex with a card-battle mode",
+      description:
+        "An interactive Pokémon trading-card Pokédex with a modern animated UI — search, filters, detailed cards and a simple playable card-battle section.",
+      tags: ["JavaScript", "UI/UX", "Animation"],
+      repo: "https://github.com/Mahnoor-Zaffar/PokeDex_Card_Trading",
+      demo: "https://mahnoor-zaffar.github.io/PokeDex_Card_Trading/",
+    },
   ],
   more: { label: "View all on GitHub", href: "https://github.com/Mahnoor-Zaffar" },
 };
