@@ -90,6 +90,17 @@ export function Hero() {
             <a href="#experience" className="pill-ghost h-11 px-7 text-fluid-base">
               View experience
             </a>
+            {profile.resumeUrl && (
+              <a
+                href={profile.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                download
+                className="pill-ghost h-11 px-7 text-fluid-base"
+              >
+                Résumé ↓
+              </a>
+            )}
           </div>
         </div>
 

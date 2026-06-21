@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Page not found · Mahnoor Zaffar</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --ink: #0a0a0a;
+        --mute: #6f6f6f;
+        --line: #e5e5e5;
+        --accent: #ee6f2d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0a0a0a;
+          --ink: #fafafa;
+          --mute: #8a8a8a;
+          --line: #262626;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, "JetBrains Mono", monospace;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        text-align: center;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        max-width: 32rem;
+      }
+      .code {
+        font-size: clamp(4rem, 18vw, 8rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+      .code span {
+        color: var(--accent);
+      }
+      .msg {
+        margin-top: 1rem;
+        color: var(--mute);
+        font-size: 0.95rem;
+      }
+      .prompt {
+        margin-top: 1.5rem;
+        color: var(--mute);
+        font-size: 0.85rem;
+      }
+      .prompt b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      a.home {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+        padding: 0.65rem 1.4rem;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--bg);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+      }
+      a.home:hover {
+        transform: scale(0.97);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="code">4<span>0</span>4</div>
+      <p class="msg">This page wandered off the map.</p>
+      <p class="prompt">
+        <span style="color: var(--accent)">$</span> cd <b>~/mahnoor</b>
+      </p>
+      <a class="home" href="/">
+        <span style="color: var(--accent)">$</span> return home
+      </a>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from "react";
-import emailjs from "@emailjs/browser";
 import { profile } from "@/content/site";
 import { emailjsConfig, isEmailjsConfigured } from "@/lib/emailjs";
 
@@ -39,6 +38,8 @@ export function ContactForm() {
 
     setStatus("sending");
     try {
+      // Lazy-load the SDK so it stays out of the initial bundle.
+      const { default: emailjs } = await import("@emailjs/browser");
       await emailjs.send(
         emailjsConfig.serviceId,
         emailjsConfig.templateId,

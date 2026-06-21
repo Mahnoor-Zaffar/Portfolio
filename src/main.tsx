@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "@/App";
+import { initAnalytics } from "@/lib/analytics";
 
 // Self-hosted variable fonts (weight axis only) — no third-party CDN.
 import "@fontsource-variable/nunito/wght.css";
@@ -16,3 +17,5 @@ createRoot(rootEl).render(
     <App />
   </StrictMode>,
 );
+
+initAnalytics();

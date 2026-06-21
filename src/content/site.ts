@@ -33,6 +33,11 @@ export const profile = {
   email: "1999mahnoor+developer@gmail.com",
   location: "Remote · Available worldwide",
   status: "Open to opportunities",
+  /**
+   * Optional résumé download. Drop a PDF in `public/` (e.g. public/resume.pdf)
+   * and set this to its path (e.g. "/resume.pdf"). Empty = button hidden.
+   */
+  resumeUrl: "",
 } as const;
 
 export const nav: NavLink[] = [

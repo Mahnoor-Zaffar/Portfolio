@@ -106,13 +106,17 @@ npm run dev
 
 ## Available Scripts
 
-| Command           | Description                                          |
-| ----------------- | ---------------------------------------------------- |
-| `npm run dev`     | Start the Vite development server with HMR.          |
-| `npm run build`   | Type-check, then produce an optimized build in `dist/`. |
-| `npm run preview` | Serve the production build locally.                  |
-| `npm run lint`    | Run ESLint with a zero-warning policy.               |
-| `npm run format`  | Format the source with Prettier.                     |
+| Command                | Description                                             |
+| ---------------------- | ------------------------------------------------------- |
+| `npm run dev`          | Start the Vite development server with HMR.             |
+| `npm run build`        | Type-check, then produce an optimized build in `dist/`. |
+| `npm run preview`      | Serve the production build locally.                     |
+| `npm run lint`         | Run ESLint with a zero-warning policy.                  |
+| `npm run format`       | Format the source with Prettier.                        |
+| `npm test`             | Run the Vitest suite once.                              |
+| `npm run test:watch`   | Run Vitest in watch mode.                               |
+| `npm run optimize:images` | Regenerate the portrait AVIF/WebP/JPG variants.      |
+| `npm run make:og`      | Regenerate the social share card (`public/og.png`).     |
 
 ## Project Structure
 
@@ -125,7 +129,9 @@ src/
 ├── content/
 │   └── site.ts              # All copy and data (single source of truth)
 ├── lib/
-│   └── anime.ts             # anime.js re-exports + reduced-motion guard
+│   ├── anime.ts             # anime.js re-exports + reduced-motion guard
+│   ├── emailjs.ts           # EmailJS config (env vars + committed defaults)
+│   └── analytics.ts         # Opt-in cookieless analytics (GoatCounter)
 ├── hooks/
 │   └── useTheme.ts          # Theme state synced to <html> + localStorage
 ├── components/
@@ -150,6 +156,10 @@ src/
 public/
 ├── favicon-32.png           # Brand favicon (+ favicon-180 / icon-192 / icon-512)
 ├── site.webmanifest
+├── og.png                   # 1200x630 social share card (run `npm run make:og`)
+├── robots.txt               # Crawl directives + sitemap pointer
+├── sitemap.xml              # Single-URL sitemap
+├── 404.html                 # Styled, theme-aware not-found page
 ├── CNAME                    # Custom domain for GitHub Pages
 └── images/                  # Portrait — AVIF/WebP/JPG variants
                              # (fonts are self-hosted via Fontsource in src/main.tsx)
@@ -189,7 +199,37 @@ export const profile = {
   1.6 MB) via `<picture>`, regenerated with `npm run optimize:images`.
 - **Accessibility** — semantic landmarks, a skip-to-content link, keyboard-
   visible focus states, `aria` labelling on interactive controls, and full
-  `prefers-reduced-motion` support.
+  `prefers-reduced-motion` support. Verified at Lighthouse Accessibility 100.
+
+## SEO & social
+
+- **Structured data** — a JSON-LD `Person` schema in
+  [`index.html`](index.html) helps search engines and recruiter tools parse the
+  profile.
+- **Discoverability** — [`public/robots.txt`](public/robots.txt) and
+  [`public/sitemap.xml`](public/sitemap.xml).
+- **Social card** — a 1200×630 [`public/og.png`](public/og.png) is referenced via
+  absolute-URL Open Graph / Twitter tags so links unfurl correctly on LinkedIn,
+  X, Slack, etc. Regenerate with `npm run make:og`.
+
+## Analytics
+
+Opt-in, cookieless analytics via [GoatCounter](https://www.goatcounter.com)
+(no consent banner needed). Disabled by default — set `VITE_GOATCOUNTER_CODE`
+(your `xxxx.goatcounter.com` site code) to enable. When unset, no script loads
+and no requests are made. See [`src/lib/analytics.ts`](src/lib/analytics.ts).
+
+## Résumé
+
+To surface a "Résumé ↓" button in the hero, drop a PDF in `public/` (e.g.
+`public/resume.pdf`) and set `profile.resumeUrl` in
+[`src/content/site.ts`](src/content/site.ts) to its path. Empty = hidden.
+
+## Testing
+
+[Vitest](https://vitest.dev) + React Testing Library (jsdom). Run `npm test`.
+Current coverage: `site.ts` content-shape validation, the contact form's
+validation behaviour, and the section-heading component.
 
 ## Contact form (EmailJS)
 
@@ -231,13 +271,22 @@ Vercel). The previous artifact build is preserved under `_legacy/` and tagged
 
 ## Roadmap
 
-The following items require external assets or content and are tracked as
-follow-ups:
+Shipped:
 
-- [x] Add a **Projects** section — featuring selected FinTech / HealthTech / AI
-      work, sourced from GitHub and editable in `src/content/site.ts`.
-- [x] Upgrade the contact form to serverless delivery via **EmailJS** (with a
-      `mailto:` fallback). See [Contact form](#contact-form-emailjs) for setup.
+- [x] **Projects** section — selected FinTech / HealthTech / AI work with live
+      demos, editable in `src/content/site.ts`.
+- [x] Serverless **contact form** via EmailJS (with a `mailto:` fallback).
+- [x] **SEO** — JSON-LD, `robots.txt`, `sitemap.xml`, and an OG share card.
+- [x] **Vitest** test suite and opt-in cookieless analytics.
+
+Optional, owner-action follow-ups:
+
+- [ ] Add a résumé PDF (`public/resume.pdf`) and set `profile.resumeUrl` to show
+      the hero download button.
+- [ ] Enable analytics by setting `VITE_GOATCOUNTER_CODE`.
+- [ ] Front the domain with a CDN (e.g. Cloudflare) for long-lived asset caching
+      — the one remaining Lighthouse "cache lifetimes" note (GitHub Pages can't
+      set custom headers).
 
 ---
 
