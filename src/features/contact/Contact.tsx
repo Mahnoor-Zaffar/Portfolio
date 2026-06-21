@@ -30,7 +30,7 @@ export function Contact() {
       <div className="shell">
         <Reveal className="rounded-xl bg-surface-dark px-6 py-14 text-center sm:px-12 sm:py-20">
           <span className="font-mono text-fluid-caption uppercase tracking-[0.18em] text-on-dark-mute">
-            // 05 — contact
+            // 06 — contact
           </span>
           <h2 className="mt-4 font-display text-fluid-2xl font-bold text-on-dark">
             {contact.heading}

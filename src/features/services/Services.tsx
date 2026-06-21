@@ -6,7 +6,7 @@ export function Services() {
   return (
     <Section id="services" className="border-b border-hairline">
       <SectionHeading
-        index="// 03 — services"
+        index="// 04 — services"
         title={services.heading}
         description={services.description}
       />

@@ -209,9 +209,8 @@ Vercel). The previous artifact build is preserved under `_legacy/` and tagged
 The following items require external assets or content and are tracked as
 follow-ups:
 
-- [ ] Add a **Projects** section once project content is available. The previous
-      build's project list belonged to the original template author and was
-      intentionally excluded.
+- [x] Add a **Projects** section — featuring selected FinTech / HealthTech / AI
+      work, sourced from GitHub and editable in `src/content/site.ts`.
 - [ ] Upgrade the contact form from the current `mailto:` flow to server-side
       delivery (e.g. Formspree or EmailJS) so messages send without opening a
       mail client.

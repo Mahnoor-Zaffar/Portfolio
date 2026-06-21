@@ -13,6 +13,15 @@ export type ExperienceEntry = {
   context: string;
   points: string[];
 };
+export type Project = {
+  name: string;
+  domain: string;
+  tagline: string;
+  description: string;
+  tags: string[];
+  repo?: string;
+  demo?: string;
+};
 export type SocialLink = { label: string; href: string; handle: string };
 
 export const profile = {
@@ -29,6 +38,7 @@ export const profile = {
 export const nav: NavLink[] = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
   { label: "Services", href: "#services" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
@@ -96,6 +106,47 @@ export const experience = {
     },
   ] satisfies ExperienceEntry[],
 } as const;
+
+export const projects: {
+  heading: string;
+  description: string;
+  items: Project[];
+  more: { label: string; href: string };
+} = {
+  heading: "Selected Projects",
+  description:
+    "A focused selection across the domains I build in — FinTech, HealthTech and applied AI. More on GitHub.",
+  items: [
+    {
+      name: "Nigehbaan Dastak",
+      domain: "HealthTech",
+      tagline: "Digital health records for small clinics",
+      description:
+        "A secure platform that replaces paper files — managing patient records, appointments and visit notes so doctors can pull up information instantly and deliver more consistent care.",
+      tags: ["Python", "PostgreSQL", "Full-Stack"],
+      repo: "https://github.com/Mahnoor-Zaffar/NeighbanDastak",
+    },
+    {
+      name: "FinTrack",
+      domain: "FinTech",
+      tagline: "Personal finance, built for daily discipline",
+      description:
+        "Combines transactions, account balances, budgets and analytics into one clean workflow — designed for everyday financial discipline rather than dashboard noise.",
+      tags: ["Python", "Analytics", "Budgeting"],
+      repo: "https://github.com/Mahnoor-Zaffar/Financial_Tracker",
+    },
+    {
+      name: "VocalFlux",
+      domain: "Applied AI",
+      tagline: "Real-time speech transcription & coaching",
+      description:
+        "Streams audio and transcribes with low latency, giving live feedback on phrasing, tone and structure — turning your voice into clearer communication in the moment.",
+      tags: ["AI", "Real-time", "Speech-to-Text"],
+      repo: "https://github.com/Mahnoor-Zaffar/Vocal-Flux",
+    },
+  ],
+  more: { label: "View all on GitHub", href: "https://github.com/Mahnoor-Zaffar" },
+};
 
 export const services = {
   heading: "Services",

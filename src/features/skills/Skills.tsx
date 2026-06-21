@@ -25,7 +25,7 @@ export function Skills() {
 
   return (
     <Section id="skills" className="border-b border-hairline">
-      <SectionHeading index="// 04 — skills" title={skills.heading} description={skills.description} />
+      <SectionHeading index="// 05 — skills" title={skills.heading} description={skills.description} />
 
       <div className="mt-12">
         <TerminalCard title="skills — interactive">
