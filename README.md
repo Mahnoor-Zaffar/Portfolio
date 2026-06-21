@@ -191,6 +191,30 @@ export const profile = {
   visible focus states, `aria` labelling on interactive controls, and full
   `prefers-reduced-motion` support.
 
+## Contact form (EmailJS)
+
+The contact form sends messages serverlessly via [EmailJS](https://www.emailjs.com).
+It needs three public (non-secret) values, configured in
+[`src/lib/emailjs.ts`](src/lib/emailjs.ts) from env vars:
+
+| Variable | Where to find it (EmailJS dashboard) |
+| --- | --- |
+| `VITE_EMAILJS_SERVICE_ID` | Email Services → your service |
+| `VITE_EMAILJS_TEMPLATE_ID` | Email Templates → your template |
+| `VITE_EMAILJS_PUBLIC_KEY` | Account → General → Public Key |
+
+The email template should reference these variables: `{{from_name}}`,
+`{{reply_to}}`, `{{message}}`.
+
+- **Local dev:** copy [`.env.example`](.env.example) to `.env.local` and fill in
+  the values.
+- **Production:** add the three as **GitHub Actions secrets** (repo Settings →
+  Secrets and variables → Actions); the deploy workflow injects them at build.
+
+If the values are absent the form gracefully falls back to a pre-filled
+`mailto:` link, so it always works. Lock down abuse via the domain allowlist in
+EmailJS → Account → Security.
+
 ## Deployment
 
 The site is served as a static build and deployed to the custom domain in
@@ -211,9 +235,8 @@ follow-ups:
 
 - [x] Add a **Projects** section — featuring selected FinTech / HealthTech / AI
       work, sourced from GitHub and editable in `src/content/site.ts`.
-- [ ] Upgrade the contact form from the current `mailto:` flow to server-side
-      delivery (e.g. Formspree or EmailJS) so messages send without opening a
-      mail client.
+- [x] Upgrade the contact form to serverless delivery via **EmailJS** (with a
+      `mailto:` fallback). See [Contact form](#contact-form-emailjs) for setup.
 
 ---
 
