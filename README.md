@@ -215,10 +215,9 @@ export const profile = {
 ## Analytics
 
 Opt-in, cookieless analytics via [GoatCounter](https://www.goatcounter.com)
-(no consent banner needed). Enabled by default with site code
-`mahnoorzaffar` in [`src/content/site.ts`](src/content/site.ts) — create a
-free GoatCounter site with that code (or change it). Override with
-`VITE_GOATCOUNTER_CODE` if needed. See [`src/lib/analytics.ts`](src/lib/analytics.ts).
+(no consent banner needed). Enabled with site code `mahnoor` in [`src/content/site.ts`](src/content/site.ts)
+(`https://mahnoor.goatcounter.com`). Override with `VITE_GOATCOUNTER_CODE` if
+needed. See [`src/lib/analytics.ts`](src/lib/analytics.ts).
 
 ## Résumé
 
@@ -280,13 +279,11 @@ Shipped:
 - [x] **SEO** — JSON-LD, `robots.txt`, `sitemap.xml`, and an OG share card.
 - [x] **Résumé** download button (`public/resume.pdf`).
 - [x] **Vitest** test suite (runs in CI before every deploy).
-- [x] Opt-in cookieless **GoatCounter** analytics (`mahnoorzaffar` site code).
+- [x] Cookieless **GoatCounter** analytics (`mahnoor` → mahnoor.goatcounter.com).
 - [x] Project card **thumbnails** for all six featured projects.
 
 Optional follow-ups:
 
-- [ ] Create the GoatCounter account at goatcounter.com with code `mahnoorzaffar`
-      (or update `analytics.goatCounterCode` in `site.ts`).
 - [ ] Front the domain with a CDN (e.g. Cloudflare) for long-lived asset caching
       — the one remaining Lighthouse "cache lifetimes" note (GitHub Pages can't
       set custom headers).

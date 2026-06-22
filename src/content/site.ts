@@ -26,7 +26,7 @@ export type Project = {
 
 /** Cookieless analytics — create a free site at goatcounter.com with this code. */
 export const analytics = {
-  goatCounterCode: "mahnoorzaffar",
+  goatCounterCode: "mahnoor",
 } as const;
 export type SocialLink = { label: string; href: string; handle: string };
 

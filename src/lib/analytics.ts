@@ -6,7 +6,7 @@ import { analytics as siteAnalytics } from "@/content/site";
  *
  * The site code lives in `site.ts` (`analytics.goatCounterCode`) and can be
  * overridden with `VITE_GOATCOUNTER_CODE`. Create a free site at goatcounter.com
- * using the same code (default: `mahnoorzaffar`).
+ * using the same code (default: `mahnoor` → mahnoor.goatcounter.com).
  */
 export function initAnalytics() {
   const code = import.meta.env.VITE_GOATCOUNTER_CODE || siteAnalytics.goatCounterCode;
