@@ -19,9 +19,15 @@ export type Project = {
   tagline: string;
   description: string;
   tags: string[];
+  image: string;
   repo?: string;
   demo?: string;
 };
+
+/** Cookieless analytics — create a free site at goatcounter.com with this code. */
+export const analytics = {
+  goatCounterCode: "mahnoorzaffar",
+} as const;
 export type SocialLink = { label: string; href: string; handle: string };
 
 export const profile = {
@@ -80,7 +86,7 @@ export const about = {
   lead: "I'm a dedicated Full-Stack & AI Developer with a background in MLOps, rapid application development, and modern web design.",
   paragraphs: [
     "I code production-ready solutions in Python, TypeScript, and React, crafting intuitive AI-powered dashboards and digital experiences. My foundation is full-stack web development with a strong focus on clean code, solid backend architecture, and polished frontend interfaces.",
-    "I specialize in transforming complex data and AI-powered features into smooth, intuitive web experiences using GSAP-grade motion, advanced CSS, and Tailwind. My focus is building applications where dashboards, automation workflows, and intelligent systems feel fast, clear, and genuinely easy to use.",
+    "I specialize in transforming complex data and AI-powered features into smooth, intuitive web experiences using purposeful motion (anime.js), advanced CSS, and Tailwind. My focus is building applications where dashboards, automation workflows, and intelligent systems feel fast, clear, and genuinely easy to use.",
   ],
 } as const;
 
@@ -129,6 +135,7 @@ export const projects: {
       description:
         "A secure platform that replaces paper files — managing patient records, appointments and visit notes so doctors can pull up information instantly and deliver more consistent care.",
       tags: ["Python", "PostgreSQL", "Full-Stack"],
+      image: "/images/projects/nigehbaan-dastak.webp",
       repo: "https://github.com/Mahnoor-Zaffar/NeighbanDastak",
     },
     {
@@ -138,6 +145,7 @@ export const projects: {
       description:
         "Combines transactions, account balances, budgets and analytics into one clean workflow — designed for everyday financial discipline rather than dashboard noise.",
       tags: ["Python", "Analytics", "Budgeting"],
+      image: "/images/projects/fintrack.webp",
       repo: "https://github.com/Mahnoor-Zaffar/Financial_Tracker",
     },
     {
@@ -147,6 +155,7 @@ export const projects: {
       description:
         "Streams audio and transcribes with low latency, giving live feedback on phrasing, tone and structure — turning your voice into clearer communication in the moment.",
       tags: ["AI", "Real-time", "Speech-to-Text"],
+      image: "/images/projects/vocalflux.webp",
       repo: "https://github.com/Mahnoor-Zaffar/Vocal-Flux",
     },
     {
@@ -156,6 +165,7 @@ export const projects: {
       description:
         "A cellular-automata sandbox in pure vanilla JS — a double-buffered Uint32Array grid and direct pixel-buffer blitting simulate falling sand, water dispersion and reactive fire at speed.",
       tags: ["Vanilla JS", "Canvas", "Simulation"],
+      image: "/images/projects/falling-sand.webp",
       repo: "https://github.com/Mahnoor-Zaffar/The-2D-Falling-Sand-Physics-Simulator",
       demo: "https://mahnoor-zaffar.github.io/The-2D-Falling-Sand-Physics-Simulator/",
     },
@@ -166,6 +176,7 @@ export const projects: {
       description:
         "A zero-dependency 2D rogue-lite engine with procedural BSP map generation, real-time 360° raycasted line-of-sight (fog of war) and A* enemy pathfinding on HTML5 Canvas.",
       tags: ["Vanilla JS", "Canvas", "Algorithms"],
+      image: "/images/projects/rogue-lite.webp",
       repo: "https://github.com/Mahnoor-Zaffar/The-Tactical-Rogue-Lite-Engine",
       demo: "https://mahnoor-zaffar.github.io/The-Tactical-Rogue-Lite-Engine/",
     },
@@ -176,6 +187,7 @@ export const projects: {
       description:
         "An interactive Pokémon trading-card Pokédex with a modern animated UI — search, filters, detailed cards and a simple playable card-battle section.",
       tags: ["JavaScript", "UI/UX", "Animation"],
+      image: "/images/projects/pokedex.webp",
       repo: "https://github.com/Mahnoor-Zaffar/PokeDex_Card_Trading",
       demo: "https://mahnoor-zaffar.github.io/PokeDex_Card_Trading/",
     },

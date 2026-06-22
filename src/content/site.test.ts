@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { profile, nav, projects, skills, socials } from "@/content/site";
+import { profile, nav, projects, skills, socials, analytics, about } from "@/content/site";
+import { goatCounterCode } from "@/lib/analytics";
 
 describe("site content", () => {
   it("has core profile fields", () => {
@@ -8,20 +9,26 @@ describe("site content", () => {
     expect(profile.email).toMatch(/@/);
   });
 
-  it("nav links all point to in-page anchors", () => {
+  it("exposes a résumé download path", () => {
+    expect(profile.resumeUrl).toBe("/resume.pdf");
+  });
+
+  it("nav links all point to in-page anchors and include Projects", () => {
     expect(nav.length).toBeGreaterThan(0);
+    expect(nav.some((l) => l.href === "#projects")).toBe(true);
     for (const link of nav) {
       expect(link.label).toBeTruthy();
       expect(link.href.startsWith("#")).toBe(true);
     }
   });
 
-  it("every project has a name, a real description and at least one tag", () => {
+  it("every project has a name, description, tags and thumbnail", () => {
     expect(projects.items.length).toBeGreaterThan(0);
     for (const p of projects.items) {
       expect(p.name).toBeTruthy();
       expect(p.description.length).toBeGreaterThan(10);
       expect(p.tags.length).toBeGreaterThan(0);
+      expect(p.image).toMatch(/^\/images\/projects\/.+\.webp$/);
       if (p.demo) expect(p.demo).toMatch(/^https?:\/\//);
       if (p.repo) expect(p.repo).toMatch(/^https?:\/\//);
     }
@@ -38,5 +45,18 @@ describe("site content", () => {
     for (const social of socials) {
       expect(social.href).toMatch(/^(https?:\/\/|mailto:)/);
     }
+  });
+
+  it("about copy references anime.js, not GSAP", () => {
+    const allAbout = [about.lead, ...about.paragraphs].join(" ");
+    expect(allAbout.toLowerCase()).not.toContain("gsap");
+    expect(allAbout).toMatch(/anime\.js/i);
+  });
+});
+
+describe("analytics", () => {
+  it("has a GoatCounter site code configured", () => {
+    expect(analytics.goatCounterCode).toBeTruthy();
+    expect(goatCounterCode).toBe(analytics.goatCounterCode);
   });
 });

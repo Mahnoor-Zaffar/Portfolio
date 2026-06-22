@@ -13,7 +13,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "optimize:images": "node scripts/optimize-images.mjs",
-    "make:og": "node scripts/make-og.mjs"
+    "make:og": "node scripts/make-og.mjs",
+    "make:thumbs": "node scripts/make-project-thumbs.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

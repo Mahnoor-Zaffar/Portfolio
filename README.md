@@ -84,8 +84,8 @@ Guiding principles:
 - **Single Responsibility** — each module does one thing; sections never reach
   into one another.
 - **Single Source of Truth** — design tokens live in `tailwind.config.ts`;
-  content lives in `src/content/site.ts`; GSAP is registered once in
-  `src/lib/gsap.ts`.
+  content lives in `src/content/site.ts`; motion utilities live in
+  `src/lib/anime.ts`.
 - **Progressive enhancement** — content is rendered and visible without
   JavaScript or animation; motion is layered on top and respects
   `prefers-reduced-motion`.
@@ -117,6 +117,7 @@ npm run dev
 | `npm run test:watch`   | Run Vitest in watch mode.                               |
 | `npm run optimize:images` | Regenerate the portrait AVIF/WebP/JPG variants.      |
 | `npm run make:og`      | Regenerate the social share card (`public/og.png`).     |
+| `npm run make:thumbs`  | Regenerate project card thumbnails in `public/images/projects/`. |
 
 ## Project Structure
 
@@ -161,8 +162,7 @@ public/
 ├── sitemap.xml              # Single-URL sitemap
 ├── 404.html                 # Styled, theme-aware not-found page
 ├── CNAME                    # Custom domain for GitHub Pages
-└── images/                  # Portrait — AVIF/WebP/JPG variants
-                             # (fonts are self-hosted via Fontsource in src/main.tsx)
+└── images/                  # Portrait + project thumbnails (projects/)
 
 DESIGN.md                    # Design-language reference (Ollama-inspired)
 _legacy/                     # Previous build artifact, retained for reference
@@ -215,9 +215,10 @@ export const profile = {
 ## Analytics
 
 Opt-in, cookieless analytics via [GoatCounter](https://www.goatcounter.com)
-(no consent banner needed). Disabled by default — set `VITE_GOATCOUNTER_CODE`
-(your `xxxx.goatcounter.com` site code) to enable. When unset, no script loads
-and no requests are made. See [`src/lib/analytics.ts`](src/lib/analytics.ts).
+(no consent banner needed). Enabled by default with site code
+`mahnoorzaffar` in [`src/content/site.ts`](src/content/site.ts) — create a
+free GoatCounter site with that code (or change it). Override with
+`VITE_GOATCOUNTER_CODE` if needed. See [`src/lib/analytics.ts`](src/lib/analytics.ts).
 
 ## Résumé
 
@@ -277,13 +278,15 @@ Shipped:
       demos, editable in `src/content/site.ts`.
 - [x] Serverless **contact form** via EmailJS (with a `mailto:` fallback).
 - [x] **SEO** — JSON-LD, `robots.txt`, `sitemap.xml`, and an OG share card.
-- [x] **Vitest** test suite and opt-in cookieless analytics.
+- [x] **Résumé** download button (`public/resume.pdf`).
+- [x] **Vitest** test suite (runs in CI before every deploy).
+- [x] Opt-in cookieless **GoatCounter** analytics (`mahnoorzaffar` site code).
+- [x] Project card **thumbnails** for all six featured projects.
 
-Optional, owner-action follow-ups:
+Optional follow-ups:
 
-- [x] Add a résumé PDF (`public/resume.pdf`) and set `profile.resumeUrl` to show
-      the hero download button.
-- [ ] Enable analytics by setting `VITE_GOATCOUNTER_CODE`.
+- [ ] Create the GoatCounter account at goatcounter.com with code `mahnoorzaffar`
+      (or update `analytics.goatCounterCode` in `site.ts`).
 - [ ] Front the domain with a CDN (e.g. Cloudflare) for long-lived asset caching
       — the one remaining Lighthouse "cache lifetimes" note (GitHub Pages can't
       set custom headers).
