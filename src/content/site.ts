@@ -34,9 +34,9 @@ export const profile = {
   firstName: "Mahnoor",
   lastName: "Zaffar",
   fullName: "Mahnoor Zaffar",
-  role: "Full-Stack Web Developer & AI Engineer",
+  role: "Backend & AI Engineer",
   handle: "~/mahnoor",
-  email: "1999mahnoor+developer@gmail.com",
+  email: "1999mahnoor@gmail.com",
   location: "Remote · Available worldwide",
   status: "Open to opportunities",
   /**
@@ -50,24 +50,24 @@ export const nav: NavLink[] = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Services", href: "#services" },
+  { label: "Expertise", href: "#services" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const hero = {
-  eyebrow: "Full-Stack & AI Engineer",
+  eyebrow: "Backend & AI Engineer",
   intro: "I'm",
   tagline:
-    "I build production-ready full-stack and AI-powered applications — turning complex data and intelligent systems into fast, intuitive products.",
+    "I build production AI applications and full-stack platforms — RAG systems, LLM-backed features, and backend infrastructure for FinTech and HealthTech.",
   /** Terminal "whoami" output rendered with a typing animation. */
   terminal: {
     command: "whoami",
     lines: [
       "name        Mahnoor Zaffar",
-      "role        Full-Stack Web Developer & AI Engineer",
-      "stack       Python · TypeScript · React · FastAPI",
-      "focus       RAG · MLOps · AI-powered dashboards",
+      "role        Backend & AI Engineer",
+      "stack       Python · TypeScript · FastAPI · React · Next.js",
+      "focus       RAG · LLM systems · AI infra · Backend architecture",
       "domains     FinTech · HealthTech",
       "status      open to opportunities ✓",
     ],
@@ -75,44 +75,44 @@ export const hero = {
 } as const;
 
 export const stats: Stat[] = [
-  { value: "1+", label: "Years building for production" },
+  { value: "1+", label: "Years shipping production software" },
   { value: "2", label: "Industries — FinTech & HealthTech" },
-  { value: "20+", label: "Tools & technologies in active use" },
-  { value: "100%", label: "Focus on clean, maintainable code" },
+  { value: "20+", label: "Technologies in active use" },
+  { value: "6", label: "Projects built end-to-end" },
 ];
 
 export const about = {
   heading: "About",
-  lead: "I'm a dedicated Full-Stack & AI Developer with a background in MLOps, rapid application development, and modern web design.",
+  lead: "I build products end-to-end — from backend architecture and database design to production AI systems and polished frontend interfaces.",
   paragraphs: [
-    "I code production-ready solutions in Python, TypeScript, and React, crafting intuitive AI-powered dashboards and digital experiences. My foundation is full-stack web development with a strong focus on clean code, solid backend architecture, and polished frontend interfaces.",
-    "I specialize in transforming complex data and AI-powered features into smooth, intuitive web experiences using purposeful motion (anime.js), advanced CSS, and Tailwind. My focus is building applications where dashboards, automation workflows, and intelligent systems feel fast, clear, and genuinely easy to use.",
+    "I work across the stack in Python, TypeScript, and React, shipping full-stack applications and AI-powered platforms. My focus is backend architecture, API design, and integrating LLMs and RAG pipelines into production systems — building software that's reliable, fast, and solves real problems.",
+    "Every project I ship is built with attention to performance, clean architecture, and maintainability. I care about engineering fundamentals: well-designed data models, versioned APIs, automated testing, and infrastructure that doesn't break at 3 AM.",
   ],
 } as const;
 
 export const experience = {
   heading: "Experience & Focus",
   description:
-    "1+ year shipping responsive, scalable, business-focused software across FinTech and HealthTech.",
+    "Building and shipping full-stack applications with a focus on AI systems and production backend architecture.",
   entries: [
     {
       period: "2024 — Present",
-      role: "Full-Stack & AI Engineer",
+      role: "Backend & AI Engineer",
       context: "FinTech & HealthTech",
       points: [
-        "Built production-ready full-stack applications with Python, TypeScript and React.",
-        "Designed AI-powered dashboards and automation workflows around RAG pipelines.",
-        "Owned features end to end — from API design to responsive, accessible UI.",
+        "Architected and shipped production full-stack applications with FastAPI backends, React frontends, and PostgreSQL — from database schema to deployment.",
+        "Built AI-powered features: RAG pipelines, LLM-backed dashboards, and automation workflows integrated into client applications.",
+        "Owned features end-to-end — API design, data modeling, automated testing, CI/CD, and infrastructure.",
       ],
     },
     {
       period: "Foundation",
-      role: "Full-Stack Web Developer",
+      role: "Full-Stack Engineer",
       context: "Backend → Frontend → AI",
       points: [
-        "Mastered server-side development before moving deep into applied AI.",
-        "Shipped responsive, user-friendly web apps with a clean-code discipline.",
-        "Now extending the stack with MLOps and intelligent, data-driven systems.",
+        "Built server-side applications with Flask, FastAPI, and Django — designing REST APIs, database schemas, and authentication systems from scratch.",
+        "Shipped responsive frontend applications with React, Next.js, and TypeScript — focusing on performance, accessibility, and clean component architecture.",
+        "Expanded into AI engineering: building RAG systems, integrating LLMs, and deploying AI features into production workflows.",
       ],
     },
   ] satisfies ExperienceEntry[],
@@ -126,97 +126,96 @@ export const projects: {
 } = {
   heading: "Selected Projects",
   description:
-    "A focused selection across the domains I build in — FinTech, HealthTech and applied AI. More on GitHub.",
+    "Projects across AI engineering, full-stack development, and systems programming — each one built and deployed end-to-end.",
   items: [
+    {
+      name: "Tayari.ai",
+      domain: "Applied AI",
+      tagline: "AI-powered interview coach for tech candidates",
+      description:
+        "An interactive AI interview platform that conducts real-time voice-based mock interviews. Built with a RAG pipeline that grounds responses in the candidate's resume, streaming multi-round conversations with background LLM evaluation and scoring.",
+      tags: ["Python", "FastAPI", "RAG", "LangChain", "Docker"],
+      image: "/images/projects/tayari-ai.webp",
+      repo: "https://github.com/Mahnoor-Zaffar/Tayari.ai",
+    },
+    {
+      name: "Job Hunt AI",
+      domain: "Applied AI",
+      tagline: "AI job intelligence & application automation",
+      description:
+        "An AI-powered platform that aggregates, analyzes, and automates job discovery for remote and local opportunities. Uses intelligent job scraping, LLM-based job matching, and automated application workflows to surface relevant positions.",
+      tags: ["Python", "AI", "Automation", "Web Scraping"],
+      image: "/images/projects/job-hunt-ai.webp",
+      repo: "https://github.com/Mahnoor-Zaffar/Job_Hunt_ai",
+    },
     {
       name: "Nigehbaan Dastak",
       domain: "HealthTech",
-      tagline: "Digital health records for small clinics",
+      tagline: "Production-grade clinic management platform",
       description:
-        "A secure platform that replaces paper files — managing patient records, appointments and visit notes so doctors can pull up information instantly and deliver more consistent care.",
-      tags: ["Python", "PostgreSQL", "Full-Stack"],
+        "A full digital clinic system replacing paper records — patient management, appointment scheduling, visit tracking, prescriptions, and real-time queue management. Built with role-based access control, audit trails, API rate limiting, and Docker deployment.",
+      tags: ["FastAPI", "React", "PostgreSQL", "Docker", "TypeScript"],
       image: "/images/projects/nigehbaan-dastak.webp",
       repo: "https://github.com/Mahnoor-Zaffar/NeighbanDastak",
     },
     {
       name: "FinTrack",
       domain: "FinTech",
-      tagline: "Personal finance, built for daily discipline",
+      tagline: "Personal finance with production security",
       description:
-        "Combines transactions, account balances, budgets and analytics into one clean workflow — designed for everyday financial discipline rather than dashboard noise.",
-      tags: ["Python", "Analytics", "Budgeting"],
+        "A full-stack finance tracker with session authentication, transaction management, budget analytics, and transfer integrity checks. Implements login throttling, CSRF protection, CSP headers, and decimal-precise financial calculations for correctness.",
+      tags: ["Flask", "PostgreSQL", "SQLAlchemy", "Docker", "Security"],
       image: "/images/projects/fintrack.webp",
       repo: "https://github.com/Mahnoor-Zaffar/Financial_Tracker",
     },
     {
-      name: "VocalFlux",
-      domain: "Applied AI",
-      tagline: "Real-time speech transcription & coaching",
-      description:
-        "Streams audio and transcribes with low latency, giving live feedback on phrasing, tone and structure — turning your voice into clearer communication in the moment.",
-      tags: ["AI", "Real-time", "Speech-to-Text"],
-      image: "/images/projects/vocalflux.webp",
-      repo: "https://github.com/Mahnoor-Zaffar/Vocal-Flux",
-    },
-    {
       name: "Falling-Sand Simulator",
-      domain: "Graphics Engine",
-      tagline: "Real-time 2D material physics sandbox",
+      domain: "Systems",
+      tagline: "High-performance 2D physics engine",
       description:
-        "A cellular-automata sandbox in pure vanilla JS — a double-buffered Uint32Array grid and direct pixel-buffer blitting simulate falling sand, water dispersion and reactive fire at speed.",
-      tags: ["Vanilla JS", "Canvas", "Simulation"],
+        "A cellular-automata physics sandbox with 9 interacting materials running at 60fps. Uses double-buffered Uint32Array grids, direct pixel-buffer blitting, and alternating scan directions to eliminate directional simulation bias.",
+      tags: ["Vanilla JS", "Canvas API", "Simulation", "Performance"],
       image: "/images/projects/falling-sand.webp",
       repo: "https://github.com/Mahnoor-Zaffar/The-2D-Falling-Sand-Physics-Simulator",
       demo: "https://mahnoor-zaffar.github.io/The-2D-Falling-Sand-Physics-Simulator/",
     },
     {
       name: "Tactical Rogue-Lite Engine",
-      domain: "Game Engine",
-      tagline: "Procedural maps, raycast fog-of-war & A*",
+      domain: "Systems",
+      tagline: "Game engine with algorithms from scratch",
       description:
-        "A zero-dependency 2D rogue-lite engine with procedural BSP map generation, real-time 360° raycasted line-of-sight (fog of war) and A* enemy pathfinding on HTML5 Canvas.",
-      tags: ["Vanilla JS", "Canvas", "Algorithms"],
+        "A zero-dependency 2D game engine implementing BSP procedural dungeon generation, 420-ray real-time fog of war, A* pathfinding with diagonal heuristics, and entity state machines with three enemy behaviour tiers.",
+      tags: ["Vanilla JS", "Canvas API", "Algorithms", "Game Engine"],
       image: "/images/projects/rogue-lite.webp",
       repo: "https://github.com/Mahnoor-Zaffar/The-Tactical-Rogue-Lite-Engine",
       demo: "https://mahnoor-zaffar.github.io/The-Tactical-Rogue-Lite-Engine/",
-    },
-    {
-      name: "PokéDex Card Trading",
-      domain: "Frontend",
-      tagline: "Animated Pokédex with a card-battle mode",
-      description:
-        "An interactive Pokémon trading-card Pokédex with a modern animated UI — search, filters, detailed cards and a simple playable card-battle section.",
-      tags: ["JavaScript", "UI/UX", "Animation"],
-      image: "/images/projects/pokedex.webp",
-      repo: "https://github.com/Mahnoor-Zaffar/PokeDex_Card_Trading",
-      demo: "https://mahnoor-zaffar.github.io/PokeDex_Card_Trading/",
     },
   ],
   more: { label: "View all on GitHub", href: "https://github.com/Mahnoor-Zaffar" },
 };
 
 export const services = {
-  heading: "Services",
+  heading: "What I Build",
   description:
-    "Expert solutions across full-stack web development and applied AI — focused on performance, scalability, and seamless user experience.",
+    "Production systems I deliver — end-to-end, from architecture to deployment.",
   items: [
     {
-      title: "Full-Stack Web Applications",
+      title: "AI-Powered Applications",
       description:
-        "Responsive, modern web apps built with React, TypeScript and Python backends — clean architecture, fast, and built to scale.",
-      tags: ["React", "FastAPI", "TypeScript"],
+        "Production AI systems with RAG pipelines, LLM integration, and intelligent automation. Built on FastAPI with vector databases, streaming responses, and evaluation frameworks.",
+      tags: ["RAG", "LLM Systems", "FastAPI", "Vector DBs"],
     },
     {
-      title: "AI & RAG Solutions",
+      title: "Full-Stack Platforms",
       description:
-        "Retrieval-augmented generation systems, AI-powered dashboards and automation workflows that turn complex data into clear, actionable products.",
-      tags: ["RAG", "LangChain", "LLMs"],
+        "End-to-end web applications with React frontends, Python backends, and PostgreSQL — built with clean architecture, automated testing, and production deployment pipelines.",
+      tags: ["React", "TypeScript", "PostgreSQL", "Docker"],
     },
     {
-      title: "MLOps & Optimization",
+      title: "Backend Infrastructure",
       description:
-        "Reliable MLOps pipelines plus performance and SEO optimization, so applications stay fast, discoverable and maintainable.",
-      tags: ["MLOps", "Docker", "CI/CD"],
+        "API design, database architecture, authentication systems, background jobs, CI/CD pipelines, and cloud deployment — infrastructure that ships reliably at scale.",
+      tags: ["FastAPI", "Docker", "CI/CD", "AWS"],
     },
   ] satisfies Service[],
 } as const;
@@ -230,12 +229,6 @@ export const skills = {
       command: "ls ~/languages",
       label: "Languages",
       items: ["Python", "JavaScript", "TypeScript", "SQL"],
-    },
-    {
-      id: "frontend",
-      command: "ls ~/frontend",
-      label: "Frontend",
-      items: ["React", "Next.js", "Tailwind CSS", "anime.js", "HTML5", "CSS3"],
     },
     {
       id: "backend",
@@ -254,20 +247,33 @@ export const skills = {
       ],
     },
     {
+      id: "ai",
+      command: "ls ~/ai",
+      label: "AI Engineering",
+      items: ["RAG", "LangChain", "LLM Systems", "Prompt Engineering", "Vector DBs", "OpenAI API"],
+    },
+    {
+      id: "frontend",
+      command: "ls ~/frontend",
+      label: "Frontend",
+      items: ["React", "Next.js", "Tailwind CSS", "anime.js", "HTML5", "CSS3"],
+    },
+    {
       id: "databases",
       command: "ls ~/databases",
       label: "Databases",
       items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "SQLite", "SQLAlchemy", "Prisma"],
     },
     {
-      id: "devops",
-      command: "ls ~/devops",
-      label: "DevOps",
+      id: "infra",
+      command: "ls ~/infra",
+      label: "Infrastructure",
       items: [
         "Docker",
         "Kubernetes",
         "GitHub Actions",
         "CI/CD",
+        "MLOps",
         "AWS",
         "Nginx",
         "Linux",
@@ -275,31 +281,12 @@ export const skills = {
         "Vercel",
       ],
     },
-    {
-      id: "ai",
-      command: "ls ~/ai",
-      label: "AI / ML",
-      items: ["RAG", "LangChain", "MLOps", "Prompt Engineering", "Vector DBs", "OpenAI API"],
-    },
-    {
-      id: "design",
-      command: "ls ~/design",
-      label: "Design",
-      items: [
-        "Figma",
-        "UI/UX Design",
-        "Design Systems",
-        "Responsive Design",
-        "Wireframing",
-        "Prototyping",
-      ],
-    },
   ] satisfies SkillGroup[],
 } as const;
 
 export const contact = {
   heading: "Let's build something",
-  message: "Have a project in mind? Let's make it a reality.",
+  message: "Looking for an engineer who ships? Let's talk.",
   closing: "Thanks for visiting — let's stay connected.",
 } as const;
 

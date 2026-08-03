@@ -36,12 +36,20 @@ const projects = [
     motif: "finance",
   },
   {
-    slug: "vocalflux",
+    slug: "tayari-ai",
     domain: "Applied AI",
-    name: "VocalFlux",
+    name: "Tayari.ai",
     accent: "#a855f7",
-    subtitle: "Speech transcription & coaching",
-    motif: "voice",
+    subtitle: "AI interview coach platform",
+    motif: "ai",
+  },
+  {
+    slug: "job-hunt-ai",
+    domain: "Applied AI",
+    name: "Job Hunt AI",
+    accent: "#6366f1",
+    subtitle: "Job intelligence & automation",
+    motif: "automation",
   },
   {
     slug: "falling-sand",
@@ -88,6 +96,10 @@ function motifSvg(type, accent) {
       return `<rect x="580" y="130" width="30" height="30" fill="${accent}" opacity="0.25"/><rect x="620" y="130" width="30" height="30" fill="${accent}" opacity="0.15"/><rect x="660" y="130" width="30" height="30" fill="${accent}" opacity="0.3"/><rect x="580" y="170" width="30" height="30" fill="${accent}" opacity="0.2"/><rect x="620" y="170" width="30" height="30" fill="${accent}" opacity="0.35"/><rect x="660" y="170" width="30" height="30" fill="${accent}" opacity="0.15"/>`;
     case "cards":
       return `<rect x="590" y="140" width="70" height="95" rx="8" fill="none" stroke="${accent}" stroke-width="2" opacity="0.4" transform="rotate(-8 625 187)"/><rect x="630" y="130" width="70" height="95" rx="8" fill="${accent}" opacity="0.12" transform="rotate(6 665 177)"/>`;
+    case "ai":
+      return `<circle cx="620" cy="180" r="4" fill="${accent}" opacity="0.7"/><circle cx="640" cy="180" r="4" fill="${accent}" opacity="0.7"/><circle cx="660" cy="180" r="4" fill="${accent}" opacity="0.7"/><line x1="600" y1="195" x2="624" y2="195" stroke="${accent}" stroke-width="3" opacity="0.5"/><line x1="646" y1="195" x2="674" y2="195" stroke="${accent}" stroke-width="3" opacity="0.5"/><path d="M580 210 L598 210 L598 170 L568 170 L568 210 L580 210" fill="none" stroke="${accent}" stroke-width="2" opacity="0.35"/><path d="M592 204 L592 176 L586 180" fill="none" stroke="${accent}" stroke-width="1.5" opacity="0.3"/>`;
+    case "automation":
+      return `<rect x="580" y="155" width="120" height="8" rx="4" fill="${accent}" opacity="0.2"/><rect x="580" y="175" width="90" height="8" rx="4" fill="${accent}" opacity="0.15"/><rect x="580" y="195" width="70" height="8" rx="4" fill="${accent}" opacity="0.1"/><path d="M700 155 L720 165 L700 175 Z" fill="${accent}" opacity="0.35"/><circle cx="690" cy="165" r="3" fill="${accent}" opacity="0.4"/><circle cx="680" cy="165" r="3" fill="${accent}" opacity="0.3"/>`;
     default:
       return "";
   }

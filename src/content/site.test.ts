@@ -47,10 +47,9 @@ describe("site content", () => {
     }
   });
 
-  it("about copy references anime.js, not GSAP", () => {
+  it("about copy avoids UI library buzzwords", () => {
     const allAbout = [about.lead, ...about.paragraphs].join(" ");
     expect(allAbout.toLowerCase()).not.toContain("gsap");
-    expect(allAbout).toMatch(/anime\.js/i);
   });
 });
 
