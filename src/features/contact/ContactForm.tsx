@@ -38,7 +38,6 @@ export function ContactForm() {
 
     setStatus("sending");
     try {
-      // Lazy-load the SDK so it stays out of the initial bundle.
       const { default: emailjs } = await import("@emailjs/browser");
       await emailjs.send(
         emailjsConfig.serviceId,
@@ -55,7 +54,7 @@ export function ContactForm() {
       setEmail("");
       setMessage("");
     } catch {
-      setStatus("error");
+      sendViaMailto();
     }
   };
 
