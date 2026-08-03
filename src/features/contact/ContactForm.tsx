@@ -1,13 +1,11 @@
 import { useRef, useState, type FormEvent } from "react";
 import { profile } from "@/content/site";
-import { emailjsConfig, isEmailjsConfigured } from "@/lib/emailjs";
 
-type Status = "idle" | "error" | "sending" | "sent" | "mailto";
+type Status = "idle" | "error" | "sent";
 
 /**
- * Contact form with serverless delivery via EmailJS. Falls back to mailto:
- * when EmailJS is unavailable or rejects the request. The destination address
- * is never placed in the public DOM.
+ * Contact form that opens the user's mail client with a pre-filled message.
+ * No third-party services, no server — just mailto:.
  */
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -16,20 +14,7 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const submitted = useRef(false);
 
-  const sendViaMailto = () => {
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name.trim()}`);
-    const body = encodeURIComponent(`${message.trim()}\n\n— ${name.trim()} (${email.trim()})`);
-    const link = document.createElement("a");
-    link.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    link.target = "_blank";
-    link.click();
-    setStatus("mailto");
-    setName("");
-    setEmail("");
-    setMessage("");
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (submitted.current) return;
 
@@ -40,38 +25,24 @@ export function ContactForm() {
     }
 
     submitted.current = true;
+    setStatus("sent");
 
-    if (!isEmailjsConfigured) {
-      sendViaMailto();
-      return;
-    }
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name.trim()}`);
+    const body = encodeURIComponent(`${message.trim()}\n\n— ${name.trim()} (${email.trim()})`);
+    const link = document.createElement("a");
+    link.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+    link.target = "_blank";
+    link.click();
 
-    setStatus("sending");
-    try {
-      const { default: emailjs } = await import("@emailjs/browser");
-      await emailjs.send(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
-        {
-          from_name: name.trim(),
-          reply_to: email.trim(),
-          message: message.trim(),
-        },
-        { publicKey: emailjsConfig.publicKey },
-      );
-      setStatus("sent");
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch {
-      sendViaMailto();
-    }
+    setName("");
+    setEmail("");
+    setMessage("");
   };
 
   const fieldClass =
     "w-full rounded-md border border-white/15 bg-white/5 px-4 py-2.5 text-fluid-sm text-on-dark placeholder:text-on-dark-mute focus:border-white/40 focus:outline-none disabled:opacity-60";
 
-  const busy = status === "sending" || status === "sent" || status === "mailto";
+  const busy = status === "sent";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="mt-6 flex w-full flex-col gap-3 text-left">
@@ -119,7 +90,7 @@ export function ContactForm() {
           disabled={busy}
           className="inline-flex items-center gap-2 rounded-pill bg-canvas px-6 py-2.5 font-mono text-fluid-sm font-medium text-ink transition-transform duration-200 hover:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          <span className="text-term-green">$</span> {status === "sending" ? "sending…" : "send message"}
+          <span className="text-term-green">$</span> send message
         </button>
         {status === "error" && (
           <span className="text-fluid-caption text-term-red" role="alert">
@@ -128,11 +99,6 @@ export function ContactForm() {
         )}
         {status === "sent" && (
           <span className="text-fluid-caption text-term-green" role="status">
-            Message sent — thank you! I'll be in touch soon.
-          </span>
-        )}
-        {status === "mailto" && (
-          <span className="text-fluid-caption text-term-amber" role="status">
             Check your email app — your message is ready to send.
           </span>
         )}
