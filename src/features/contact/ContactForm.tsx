@@ -1,35 +1,45 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { profile } from "@/content/site";
 import { emailjsConfig, isEmailjsConfigured } from "@/lib/emailjs";
 
-type Status = "idle" | "error" | "sending" | "sent";
+type Status = "idle" | "error" | "sending" | "sent" | "mailto";
 
 /**
- * Contact form with serverless delivery via EmailJS. When the EmailJS env
- * vars are configured the message is sent directly (no mail client). If they
- * are missing, it gracefully falls back to a pre-filled mailto: so the form
- * always works. The destination address is never placed in the public DOM.
+ * Contact form with serverless delivery via EmailJS. Falls back to mailto:
+ * when EmailJS is unavailable or rejects the request. The destination address
+ * is never placed in the public DOM.
  */
 export function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const submitted = useRef(false);
 
   const sendViaMailto = () => {
     const subject = encodeURIComponent(`Portfolio enquiry from ${name.trim()}`);
     const body = encodeURIComponent(`${message.trim()}\n\n— ${name.trim()} (${email.trim()})`);
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setStatus("sent");
+    const link = document.createElement("a");
+    link.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+    link.target = "_blank";
+    link.click();
+    setStatus("mailto");
+    setName("");
+    setEmail("");
+    setMessage("");
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (submitted.current) return;
+
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!name.trim() || !isValidEmail || !message.trim()) {
       setStatus("error");
       return;
     }
+
+    submitted.current = true;
 
     if (!isEmailjsConfigured) {
       sendViaMailto();
@@ -61,7 +71,7 @@ export function ContactForm() {
   const fieldClass =
     "w-full rounded-md border border-white/15 bg-white/5 px-4 py-2.5 text-fluid-sm text-on-dark placeholder:text-on-dark-mute focus:border-white/40 focus:outline-none disabled:opacity-60";
 
-  const sending = status === "sending";
+  const busy = status === "sending" || status === "sent" || status === "mailto";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="mt-6 flex w-full flex-col gap-3 text-left">
@@ -75,7 +85,7 @@ export function ContactForm() {
             placeholder="Your name"
             className={fieldClass}
             autoComplete="name"
-            disabled={sending}
+            disabled={busy}
           />
         </label>
         <label className="flex flex-col gap-1.5">
@@ -87,7 +97,7 @@ export function ContactForm() {
             placeholder="you@example.com"
             className={fieldClass}
             autoComplete="email"
-            disabled={sending}
+            disabled={busy}
           />
         </label>
       </div>
@@ -99,26 +109,31 @@ export function ContactForm() {
           placeholder="Tell me about your project…"
           rows={4}
           className={`${fieldClass} resize-y`}
-          disabled={sending}
+          disabled={busy}
         />
       </label>
 
       <div className="mt-1 flex flex-wrap items-center gap-3">
         <button
           type="submit"
-          disabled={sending}
+          disabled={busy}
           className="inline-flex items-center gap-2 rounded-pill bg-canvas px-6 py-2.5 font-mono text-fluid-sm font-medium text-ink transition-transform duration-200 hover:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          <span className="text-term-green">$</span> {sending ? "sending…" : "send message"}
+          <span className="text-term-green">$</span> {status === "sending" ? "sending…" : "send message"}
         </button>
         {status === "error" && (
           <span className="text-fluid-caption text-term-red" role="alert">
-            Something went wrong. Please check your details and try again.
+            Please fill in all fields with a valid email.
           </span>
         )}
         {status === "sent" && (
           <span className="text-fluid-caption text-term-green" role="status">
             Message sent — thank you! I'll be in touch soon.
+          </span>
+        )}
+        {status === "mailto" && (
+          <span className="text-fluid-caption text-term-amber" role="status">
+            Check your email app — your message is ready to send.
           </span>
         )}
       </div>
