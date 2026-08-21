@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from "react";
 import { profile } from "@/content/site";
+import { trackEvent } from "@/lib/posthog";
 
 type Status = "idle" | "error" | "sent";
 
@@ -26,6 +27,7 @@ export function ContactForm() {
 
     submitted.current = true;
     setStatus("sent");
+    trackEvent("contact_click", { source: "form" });
 
     const subject = encodeURIComponent(`Portfolio enquiry from ${name.trim()}`);
     const body = encodeURIComponent(`${message.trim()}\n\n— ${name.trim()} (${email.trim()})`);

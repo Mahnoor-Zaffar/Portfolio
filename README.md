@@ -132,9 +132,10 @@ src/
 ├── lib/
 │   ├── anime.ts             # anime.js re-exports + reduced-motion guard
 │   ├── emailjs.ts           # EmailJS config (env vars + committed defaults)
-│   └── analytics.ts         # Opt-in cookieless analytics (GoatCounter)
+│   └── posthog.ts           # PostHog product analytics (explicit events)
 ├── hooks/
-│   └── useTheme.ts          # Theme state synced to <html> + localStorage
+│   ├── useTheme.ts          # Theme state synced to <html> + localStorage
+│   └── useTrackInView.ts    # Fire a callback once on scroll-into-view
 ├── components/
 │   ├── Reveal.tsx           # Scroll-reveal wrapper (anime.js + IO)
 │   ├── ThemeToggle.tsx      # Animated light/dark switch
@@ -214,10 +215,20 @@ export const profile = {
 
 ## Analytics
 
-Opt-in, cookieless analytics via [GoatCounter](https://www.goatcounter.com)
-(no consent banner needed). Enabled with site code `mahnoor` in [`src/content/site.ts`](src/content/site.ts)
-(`https://mahnoor.goatcounter.com`). Override with `VITE_GOATCOUNTER_CODE` if
-needed. See [`src/lib/analytics.ts`](src/lib/analytics.ts).
+Product analytics via [PostHog](https://posthog.com), tracking explicit events
+only (no autocapture, no session replay). Configure it with `VITE_POSTHOG_KEY`
+(your `phc_...` project key) and optionally `VITE_POSTHOG_HOST` (defaults to the
+US cloud). See [`src/lib/posthog.ts`](src/lib/posthog.ts) for the event schema
+and [`src/vite-env.d.ts`](src/vite-env.d.ts) for the env types.
+
+Tracked events:
+
+- `portfolio_view`, `project_view`
+- `github_click`, `demo_click`
+- `contact_click`, `resume_download`, `linkedin_click`
+
+In CI, the key and host are injected at build time from the
+`VITE_POSTHOG_KEY` / `VITE_POSTHOG_HOST` repository secrets.
 
 ## Résumé
 
@@ -279,7 +290,7 @@ Shipped:
 - [x] **SEO** — JSON-LD, `robots.txt`, `sitemap.xml`, and an OG share card.
 - [x] **Résumé** download button (`public/resume.pdf`).
 - [x] **Vitest** test suite (runs in CI before every deploy).
-- [x] Cookieless **GoatCounter** analytics (`mahnoor` → mahnoor.goatcounter.com).
+- [x] **PostHog** product analytics (explicit events only).
 - [x] Project card **thumbnails** for all six featured projects.
 
 Optional follow-ups:

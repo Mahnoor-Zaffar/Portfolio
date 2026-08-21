@@ -24,10 +24,6 @@ export type Project = {
   demo?: string;
 };
 
-/** Cookieless analytics — create a free site at goatcounter.com with this code. */
-export const analytics = {
-  goatCounterCode: "mahnoor",
-} as const;
 export type SocialLink = { label: string; href: string; handle: string };
 
 export const profile = {

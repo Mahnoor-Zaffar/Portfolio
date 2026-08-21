@@ -1,6 +1,7 @@
 import { contact, profile, socials } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/features/contact/ContactForm";
+import { trackEvent } from "@/lib/posthog";
 
 export function Contact() {
   return (
@@ -21,6 +22,7 @@ export function Contact() {
           <div className="mx-auto mt-10 max-w-xl">
             <a
               href={`mailto:${profile.email}`}
+              onClick={() => trackEvent("contact_click", { source: "email" })}
               className="inline-flex items-center gap-2 rounded-pill bg-canvas px-7 py-3.5 font-mono text-fluid-sm font-medium text-ink transition-transform duration-200 hover:scale-[0.97]"
             >
               <span className="text-term-green">$</span> {profile.email}
@@ -33,6 +35,15 @@ export function Contact() {
                     href={social.href}
                     target={social.href.startsWith("http") ? "_blank" : undefined}
                     rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    onClick={() => {
+                      if (social.label === "GitHub") {
+                        trackEvent("github_click", { location: "contact", url: social.href });
+                      } else if (social.label === "LinkedIn") {
+                        trackEvent("linkedin_click", { location: "contact", url: social.href });
+                      } else {
+                        trackEvent("contact_click", { source: "email" });
+                      }
+                    }}
                     className="inline-block rounded-pill border border-white/15 px-5 py-2.5 text-fluid-sm font-medium text-on-dark-mute transition-colors hover:border-white/60 hover:text-on-dark"
                   >
                     {social.label}

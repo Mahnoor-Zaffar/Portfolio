@@ -1,4 +1,5 @@
 import { profile, socials } from "@/content/site";
+import { trackEvent } from "@/lib/posthog";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -16,6 +17,15 @@ export function Footer() {
                 href={social.href}
                 target={social.href.startsWith("http") ? "_blank" : undefined}
                 rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                onClick={() => {
+                  if (social.label === "GitHub") {
+                    trackEvent("github_click", { location: "footer", url: social.href });
+                  } else if (social.label === "LinkedIn") {
+                    trackEvent("linkedin_click", { location: "footer", url: social.href });
+                  } else {
+                    trackEvent("contact_click", { source: "email" });
+                  }
+                }}
                 className="transition-colors hover:text-ink"
               >
                 {social.label}

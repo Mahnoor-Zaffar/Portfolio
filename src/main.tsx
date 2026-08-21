@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "@/App";
-import { initAnalytics } from "@/lib/analytics";
+import { initPostHog, trackEvent } from "@/lib/posthog";
 
 // Self-hosted variable fonts (weight axis only) — no third-party CDN.
 import "@fontsource-variable/nunito/wght.css";
@@ -12,10 +12,15 @@ import "@/styles/index.css";
 const rootEl = document.getElementById("root");
 if (!rootEl) throw new Error("Root element #root not found");
 
+initPostHog();
+
 createRoot(rootEl).render(
   <StrictMode>
     <App />
   </StrictMode>,
 );
 
-initAnalytics();
+trackEvent("portfolio_view", {
+  path: window.location.pathname,
+  referrer: document.referrer || undefined,
+});

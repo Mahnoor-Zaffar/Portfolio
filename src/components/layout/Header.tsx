@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { nav, profile } from "@/content/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { trackEvent } from "@/lib/posthog";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,7 +42,11 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <a href="#contact" className="pill-primary hidden md:inline-flex">
+          <a
+            href="#contact"
+            onClick={() => trackEvent("contact_click", { source: "header" })}
+            className="pill-primary hidden md:inline-flex"
+          >
             Get in touch
           </a>
           <button
@@ -81,7 +86,14 @@ export function Header() {
               </li>
             ))}
             <li>
-              <a href="#contact" onClick={() => setOpen(false)} className="pill-primary mt-2 w-full">
+              <a
+                href="#contact"
+                onClick={() => {
+                  setOpen(false);
+                  trackEvent("contact_click", { source: "header" });
+                }}
+                className="pill-primary mt-2 w-full"
+              >
                 Get in touch
               </a>
             </li>

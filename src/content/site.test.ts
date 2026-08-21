@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { profile, nav, projects, skills, socials, analytics, about } from "@/content/site";
-import { goatCounterCode } from "@/lib/analytics";
+import { profile, nav, projects, skills, socials, about } from "@/content/site";
 
 describe("site content", () => {
   it("has core profile fields", () => {
@@ -50,12 +49,5 @@ describe("site content", () => {
   it("about copy avoids UI library buzzwords", () => {
     const allAbout = [about.lead, ...about.paragraphs].join(" ");
     expect(allAbout.toLowerCase()).not.toContain("gsap");
-  });
-});
-
-describe("analytics", () => {
-  it("has a GoatCounter site code configured", () => {
-    expect(analytics.goatCounterCode).toBeTruthy();
-    expect(goatCounterCode).toBe(analytics.goatCounterCode);
   });
 });

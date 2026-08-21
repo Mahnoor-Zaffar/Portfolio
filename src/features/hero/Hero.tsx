@@ -3,6 +3,7 @@ import { hero, profile, socials, stats } from "@/content/site";
 import { StatCounter } from "@/components/StatCounter";
 import { TerminalCard } from "@/components/TerminalCard";
 import { createTimeline, stagger, prefersReducedMotion } from "@/lib/anime";
+import { trackEvent } from "@/lib/posthog";
 
 export function Hero() {
   const cmdRef = useRef<HTMLSpanElement>(null);
@@ -84,7 +85,11 @@ export function Hero() {
           </h1>
           <p className="mt-6 max-w-reading text-fluid-lg text-body">{hero.tagline}</p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#contact" className="pill-primary h-11 px-7 text-fluid-base">
+            <a
+              href="#contact"
+              onClick={() => trackEvent("contact_click", { source: "hero" })}
+              className="pill-primary h-11 px-7 text-fluid-base"
+            >
               Get in touch
             </a>
             <a href="#experience" className="pill-ghost h-11 px-7 text-fluid-base">
@@ -96,6 +101,7 @@ export function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 download
+                onClick={() => trackEvent("resume_download", { url: profile.resumeUrl })}
                 className="pill-ghost h-11 px-7 text-fluid-base"
               >
                 Résumé ↓
@@ -111,6 +117,12 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
+                onClick={() =>
+                  trackEvent(social.label === "GitHub" ? "github_click" : "linkedin_click", {
+                    location: "hero",
+                    url: social.href,
+                  })
+                }
                 className="text-mute transition-colors hover:text-ink"
               >
                 {social.label === "GitHub" ? (
