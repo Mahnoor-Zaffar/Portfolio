@@ -108,8 +108,12 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export function Projects() {
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "projects" }),
+  );
+
   return (
-    <Section id="projects" className="border-b border-hairline">
+    <Section id="projects" className="border-b border-hairline" ref={sectionRef}>
       <SectionHeading
         index="// 03 — projects"
         title={projects.heading}

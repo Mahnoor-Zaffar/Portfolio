@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import { animate, prefersReducedMotion } from "@/lib/anime";
+import { trackEvent } from "@/lib/posthog";
 
 export function ThemeToggle() {
   const { theme, toggle } = useTheme();
@@ -15,6 +16,8 @@ export function ThemeToggle() {
         ease: "outBack",
       });
     }
+    const newTheme = theme === "dark" ? "light" : "dark";
+    trackEvent("theme_toggle", { theme: newTheme });
     toggle();
   };
 

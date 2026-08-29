@@ -4,11 +4,15 @@ import { StatCounter } from "@/components/StatCounter";
 import { TerminalCard } from "@/components/TerminalCard";
 import { createTimeline, stagger, prefersReducedMotion } from "@/lib/anime";
 import { trackEvent } from "@/lib/posthog";
+import { useTrackInView } from "@/hooks/useTrackInView";
 
 export function Hero() {
   const cmdRef = useRef<HTMLSpanElement>(null);
   const linesRef = useRef<HTMLUListElement>(null);
   const headRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "hero" }),
+  );
 
   useEffect(() => {
     const cmdEl = cmdRef.current;
@@ -67,6 +71,7 @@ export function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative overflow-hidden border-b border-hairline pb-section pt-28 sm:pt-32"
     >

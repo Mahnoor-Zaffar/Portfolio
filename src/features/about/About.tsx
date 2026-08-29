@@ -1,10 +1,16 @@
 import { about, profile } from "@/content/site";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Reveal } from "@/components/Reveal";
+import { trackEvent } from "@/lib/posthog";
+import { useTrackInView } from "@/hooks/useTrackInView";
 
 export function About() {
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "about" }),
+  );
+
   return (
-    <Section id="about" className="border-b border-hairline">
+    <Section id="about" className="border-b border-hairline" ref={sectionRef}>
       <SectionHeading index="// 01 — about" title={about.heading} />
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">

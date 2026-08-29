@@ -3,11 +3,22 @@ import { skills } from "@/content/site";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { TerminalCard } from "@/components/TerminalCard";
 import { animate, stagger, prefersReducedMotion } from "@/lib/anime";
+import { trackEvent } from "@/lib/posthog";
+import { useTrackInView } from "@/hooks/useTrackInView";
 
 export function Skills() {
   const [activeId, setActiveId] = useState(skills.groups[0].id);
   const listRef = useRef<HTMLUListElement>(null);
   const active = skills.groups.find((g) => g.id === activeId) ?? skills.groups[0];
+
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "skills" }),
+  );
+
+  const handleCategoryClick = (categoryId: string, label: string) => {
+    setActiveId(categoryId);
+    trackEvent("skill_category_click", { category: label });
+  };
 
   useEffect(() => {
     const el = listRef.current;
@@ -24,7 +35,7 @@ export function Skills() {
   }, [activeId]);
 
   return (
-    <Section id="skills" className="border-b border-hairline">
+    <Section id="skills" className="border-b border-hairline" ref={sectionRef}>
       <SectionHeading index="// 05 — skills" title={skills.heading} description={skills.description} />
 
       <div className="mt-12">
@@ -39,7 +50,7 @@ export function Skills() {
                   type="button"
                   role="tab"
                   aria-selected={isActive}
-                  onClick={() => setActiveId(group.id)}
+                  onClick={() => handleCategoryClick(group.id, group.label)}
                   className={`rounded-pill px-3 py-1.5 font-mono text-fluid-caption transition-colors ${
                     isActive
                       ? "bg-primary text-on-primary"

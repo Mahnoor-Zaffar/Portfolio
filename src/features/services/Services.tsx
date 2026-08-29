@@ -1,10 +1,16 @@
 import { services } from "@/content/site";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Reveal } from "@/components/Reveal";
+import { trackEvent } from "@/lib/posthog";
+import { useTrackInView } from "@/hooks/useTrackInView";
 
 export function Services() {
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "services" }),
+  );
+
   return (
-    <Section id="services" className="border-b border-hairline">
+    <Section id="services" className="border-b border-hairline" ref={sectionRef}>
       <SectionHeading
         index="// 04 — services"
         title={services.heading}

@@ -2,10 +2,15 @@ import { contact, profile, socials } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/features/contact/ContactForm";
 import { trackEvent } from "@/lib/posthog";
+import { useTrackInView } from "@/hooks/useTrackInView";
 
 export function Contact() {
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "contact" }),
+  );
+
   return (
-    <section id="contact" className="scroll-mt-20 py-section">
+    <section ref={sectionRef} id="contact" className="scroll-mt-20 py-section">
       <div className="shell">
         <Reveal className="rounded-xl bg-surface-dark px-6 py-14 text-center sm:px-12 sm:py-20">
           <span className="font-mono text-fluid-caption uppercase tracking-[0.18em] text-on-dark-mute">

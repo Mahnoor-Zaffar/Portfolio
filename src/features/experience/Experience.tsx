@@ -1,10 +1,16 @@
 import { experience } from "@/content/site";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Reveal } from "@/components/Reveal";
+import { trackEvent } from "@/lib/posthog";
+import { useTrackInView } from "@/hooks/useTrackInView";
 
 export function Experience() {
+  const sectionRef = useTrackInView(() =>
+    trackEvent("section_view", { section: "experience" }),
+  );
+
   return (
-    <Section id="experience" className="border-b border-hairline">
+    <Section id="experience" className="border-b border-hairline" ref={sectionRef}>
       <SectionHeading
         index="// 02 — experience"
         title={experience.heading}

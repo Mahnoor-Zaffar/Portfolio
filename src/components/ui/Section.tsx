@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 
 type SectionProps = {
   id: string;
@@ -7,13 +7,16 @@ type SectionProps = {
   ariaLabel?: string;
 };
 
-export function Section({ id, children, className = "", ariaLabel }: SectionProps) {
+export const Section = forwardRef<HTMLElement, SectionProps>(function Section(
+  { id, children, className = "", ariaLabel },
+  ref,
+) {
   return (
-    <section id={id} aria-label={ariaLabel} className={`scroll-mt-20 py-section ${className}`}>
+    <section ref={ref} id={id} aria-label={ariaLabel} className={`scroll-mt-20 py-section ${className}`}>
       <div className="shell">{children}</div>
     </section>
   );
-}
+});
 
 type SectionHeadingProps = {
   index: string;
