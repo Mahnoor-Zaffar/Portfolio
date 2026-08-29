@@ -21,12 +21,7 @@ export function ContactForm() {
       return;
     }
 
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? "";
-    if (!accessKey) {
-      setStatus("error");
-      setErrorMsg("Form not configured. Please email directly.");
-      return;
-    }
+    const accessKey = "86cd6deb-f484-403f-b03a-c3952b75fcad";
 
     setStatus("sending");
 
