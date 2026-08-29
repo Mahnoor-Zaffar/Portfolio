@@ -10,7 +10,7 @@ import posthog from "posthog-js";
  * `VITE_POSTHOG_HOST`, defaulting to the US cloud).
  */
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY;
-const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST || "https://us.i.posthog.com";
+const POSTHOG_HOST = "/ingest";
 
 /** True when a PostHog project key is configured; gates all tracking calls. */
 export const isPostHogEnabled = Boolean(POSTHOG_KEY);
