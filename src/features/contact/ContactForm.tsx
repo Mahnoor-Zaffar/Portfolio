@@ -8,19 +8,23 @@ export function ContactForm() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrorMsg("");
 
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!name.trim() || !isValidEmail || !message.trim()) {
       setStatus("error");
+      setErrorMsg("Please fill in all fields with a valid email.");
       return;
     }
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? "";
     if (!accessKey) {
       setStatus("error");
+      setErrorMsg("Form not configured. Please email directly.");
       return;
     }
 
@@ -40,6 +44,7 @@ export function ContactForm() {
       });
 
       const data = await response.json();
+      console.log("Web3Forms response:", data);
 
       if (data.success) {
         setStatus("sent");
@@ -49,9 +54,12 @@ export function ContactForm() {
         setMessage("");
       } else {
         setStatus("error");
+        setErrorMsg(data.message || "Failed to send. Try again.");
       }
-    } catch {
+    } catch (err) {
+      console.error("Web3Forms error:", err);
       setStatus("error");
+      setErrorMsg("Network error. Please email directly.");
     }
   };
 
@@ -110,7 +118,7 @@ export function ContactForm() {
         </button>
         {status === "error" && (
           <span className="text-fluid-caption text-term-red" role="alert">
-            Something went wrong. Please try again or email directly.
+            {errorMsg || "Something went wrong. Please try again or email directly."}
           </span>
         )}
         {status === "sent" && (
