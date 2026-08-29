@@ -1,23 +1,16 @@
-import { useRef, useState, type FormEvent } from "react";
-import { profile } from "@/content/site";
+import { useState, type FormEvent } from "react";
 import { trackEvent } from "@/lib/posthog";
 
-type Status = "idle" | "error" | "sent";
+type Status = "idle" | "sending" | "error" | "sent";
 
-/**
- * Contact form that opens the user's mail client with a pre-filled message.
- * No third-party services, no server — just mailto:.
- */
 export function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
-  const submitted = useRef(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (submitted.current) return;
 
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!name.trim() || !isValidEmail || !message.trim()) {
@@ -25,26 +18,47 @@ export function ContactForm() {
       return;
     }
 
-    submitted.current = true;
-    setStatus("sent");
-    trackEvent("contact_click", { source: "form" });
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? "";
+    if (!accessKey) {
+      setStatus("error");
+      return;
+    }
 
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name.trim()}`);
-    const body = encodeURIComponent(`${message.trim()}\n\n— ${name.trim()} (${email.trim()})`);
-    const link = document.createElement("a");
-    link.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    link.target = "_blank";
-    link.click();
+    setStatus("sending");
 
-    setName("");
-    setEmail("");
-    setMessage("");
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+          subject: `Portfolio enquiry from ${name.trim()}`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("sent");
+        trackEvent("contact_form_sent", { name: name.trim() });
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   const fieldClass =
     "w-full rounded-md border border-white/15 bg-white/5 px-4 py-2.5 text-fluid-sm text-on-dark placeholder:text-on-dark-mute focus:border-white/40 focus:outline-none disabled:opacity-60";
 
-  const busy = status === "sent";
+  const busy = status === "sending" || status === "sent";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="mt-6 flex w-full flex-col gap-3 text-left">
@@ -92,16 +106,16 @@ export function ContactForm() {
           disabled={busy}
           className="inline-flex items-center gap-2 rounded-pill bg-canvas px-6 py-2.5 font-mono text-fluid-sm font-medium text-ink transition-transform duration-200 hover:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          <span className="text-term-green">$</span> send message
+          <span className="text-term-green">$</span> {status === "sending" ? "sending..." : status === "sent" ? "sent ✓" : "send message"}
         </button>
         {status === "error" && (
           <span className="text-fluid-caption text-term-red" role="alert">
-            Please fill in all fields with a valid email.
+            Something went wrong. Please try again or email directly.
           </span>
         )}
         {status === "sent" && (
           <span className="text-fluid-caption text-term-green" role="status">
-            Check your email app — your message is ready to send.
+            Message sent! I'll get back to you soon.
           </span>
         )}
       </div>

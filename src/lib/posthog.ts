@@ -21,6 +21,7 @@ export type PostHogEventName =
   | "github_click"
   | "demo_click"
   | "contact_click"
+  | "contact_form_sent"
   | "resume_download"
   | "linkedin_click";
 
@@ -30,6 +31,7 @@ export type PostHogEventProps = {
   github_click: { location: string; project_name?: string; url?: string };
   demo_click: { project_name: string; url?: string };
   contact_click: { source: string };
+  contact_form_sent: { name: string };
   resume_download: { url?: string };
   linkedin_click: { location: string; url?: string };
 };
