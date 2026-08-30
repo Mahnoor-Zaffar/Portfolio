@@ -1,7 +1,7 @@
 {
   "name": "mahnoor-zaffar-portfolio",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "module",
   "description": "Production-grade personal portfolio for Mahnoor Zaffar — rebuilt from source.",
   "scripts": {
