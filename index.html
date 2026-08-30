@@ -16,6 +16,9 @@
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta property="og:locale" content="en_US" />
     <link rel="canonical" href="https://www.mahnoorzaffar.dev/" />
 
     <meta property="og:title" content="Mahnoor Zaffar — Backend & AI Engineer" />
@@ -105,5 +108,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <noscript>
+      <style>
+        #noscript-fallback {
+          max-width: 48rem;
+          margin: 6rem auto 2rem;
+          padding: 0 1.5rem;
+          font-family: ui-monospace, SFMono-Regular, Menlo, "JetBrains Mono", monospace;
+          color: #0a0a0a;
+        }
+        @media (prefers-color-scheme: dark) {
+          #noscript-fallback { color: #fafafa; }
+        }
+        #noscript-fallback h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        #noscript-fallback p { color: #6f6f6f; line-height: 1.6; }
+        #noscript-fallback a { color: #ee6f2d; }
+      </style>
+      <div id="noscript-fallback">
+        <h1>Mahnoor Zaffar — Backend &amp; AI Engineer</h1>
+        <p>I build production AI applications and full-stack platforms — RAG systems, LLM-backed features, and backend infrastructure for FinTech and HealthTech.</p>
+        <p>View my work on <a href="https://github.com/Mahnoor-Zaffar">GitHub</a> or <a href="https://www.linkedin.com/in/mahnoor-zaffar/">LinkedIn</a>, or email <a href="mailto:1999mahnoor@gmail.com">1999mahnoor@gmail.com</a>.</p>
+      </div>
+    </noscript>
   </body>
 </html>

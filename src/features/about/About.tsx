@@ -24,7 +24,8 @@ export function About() {
                 alt={`Portrait of ${profile.fullName}`}
                 width={864}
                 height={1184}
-                loading="lazy"
+                loading="eager"
+                fetchPriority="high"
                 decoding="async"
                 className="w-full rounded-md object-cover [aspect-ratio:864/1184]"
               />
