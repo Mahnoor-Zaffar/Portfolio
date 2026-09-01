@@ -1,303 +1,142 @@
 # Mahnoor Zaffar — Portfolio
 
-The personal portfolio of **Mahnoor Zaffar**, Full-Stack Web Developer & AI Engineer.
-A fast, accessible, and fully responsive single-page application.
+Production-grade personal portfolio for **Mahnoor Zaffar**, Backend & AI Engineer.
 
-Live site: [www.mahnoorzaffar.dev](https://www.mahnoorzaffar.dev)
+**Live:** [www.mahnoorzaffar.dev](https://www.mahnoorzaffar.dev)
 
-> **v2 — rebuilt from source.** The previous deployment shipped only a minified,
-> third-party build artifact with no maintainable source. This release is a
-> ground-up reconstruction: a typed, modular, and owned codebase.
+> **v2.1.0** — Full rewrite from a minified build artifact to a typed, modular, and maintainable codebase.
 
 ---
 
-## Table of Contents
+## Quick Start
 
-- [Overview](#overview)
-- [Tech Stack](#tech-stack)
-- [Architecture & Principles](#architecture--principles)
-- [Getting Started](#getting-started)
-- [Available Scripts](#available-scripts)
-- [Project Structure](#project-structure)
-- [Editing Content](#editing-content)
-- [Performance & Accessibility](#performance--accessibility)
-- [Deployment](#deployment)
-- [Roadmap](#roadmap)
-
----
-
-## Overview
-
-This portfolio presents a hero introduction, an about section, the services
-offered, a categorized skill set, and contact details. It is engineered as a
-production-grade frontend with an emphasis on maintainability, performance, and
-inclusive design rather than visual gimmicks.
-
-**Highlights**
-
-- Strict TypeScript across the entire codebase.
-- Centralized design tokens — colors, spacing, breakpoints, and a fluid type
-  scale defined in exactly one place.
-- Content fully decoupled from presentation: all copy lives in a single typed
-  module, so updates never require touching component code.
-- Animations implemented as progressive enhancement and disabled automatically
-  for users who prefer reduced motion.
+```bash
+npm install
+npm run dev          # http://localhost:5173
+npm run build        # type-check + production build → dist/
+npm test             # vitest run
+```
 
 ## Tech Stack
 
-| Concern        | Choice                                                  |
-| -------------- | ------------------------------------------------------- |
-| Build tool     | Vite 6                                                  |
-| UI library     | React 18                                                |
-| Language       | TypeScript (strict mode)                                |
-| Styling        | Tailwind CSS 3 with a token-driven `tailwind.config.ts` |
-| Design system  | Ollama-inspired language documented in `DESIGN.md`      |
-| Animation      | anime.js v4 (`animate`, `stagger`, timelines)           |
-| Theming        | Class-based light/dark with no-FOUC inline script       |
-| Quality gates  | ESLint (flat config, zero-warning policy) + Prettier    |
+| Layer | Technology |
+|---|---|
+| **Framework** | React 18 + TypeScript (strict) |
+| **Build** | Vite 6 |
+| **Styling** | Tailwind CSS 3 (token-driven config) |
+| **Animation** | anime.js v4 (progressive enhancement) |
+| **Analytics** | PostHog (proxied through own domain) |
+| **Contact** | Web3Forms (serverless email delivery) |
+| **Deployment** | Vercel (edge network + SPA routing) |
+| **Testing** | Vitest + React Testing Library |
 
-### Design language
+## Architecture
 
-The UI follows an Ollama-inspired, documentation-first design language captured
-in [`DESIGN.md`](DESIGN.md): a flat paper canvas, ink + neutral grays, pill
-geometry for interactive elements, hairline-bordered cards (no shadows), and a
-single inverted dark surface used once per page as the contact call-to-action.
-Headings use Nunito, body uses Inter, and code/terminal UI uses JetBrains Mono.
+**Feature-based structure** — each page section is a self-contained module under `src/features/`, composed by `App.tsx`. Cross-cutting concerns are isolated:
 
-### Theming
-
-Light and dark themes are defined as CSS variables in `src/styles/index.css` and
-switched by toggling a `.dark` class on `<html>`. The pill CTA palette inverts
-automatically. An inline script in `index.html` applies the stored or
-system-preferred theme before first paint to avoid a flash, and `useTheme`
-keeps React in sync and persists the user's choice to `localStorage`.
-
-## Architecture & Principles
-
-The codebase follows a **feature-based architecture**. Each page section is a
-self-contained feature module, composed by `App.tsx`. Cross-cutting concerns
-(layout, reusable UI, animation, and content) are isolated into dedicated
-directories.
-
-Guiding principles:
-
-- **Single Responsibility** — each module does one thing; sections never reach
-  into one another.
-- **Single Source of Truth** — design tokens live in `tailwind.config.ts`;
-  content lives in `src/content/site.ts`; motion utilities live in
-  `src/lib/anime.ts`.
-- **Progressive enhancement** — content is rendered and visible without
-  JavaScript or animation; motion is layered on top and respects
-  `prefers-reduced-motion`.
-- **Mobile-first & fluid** — layouts scale with `clamp()` and responsive
-  utilities instead of fixed pixel values and per-breakpoint overrides.
-
-## Getting Started
-
-**Prerequisites:** Node.js 18+ and npm.
-
-```bash
-# Install dependencies
-npm install
-
-# Start the development server (http://localhost:5173)
-npm run dev
 ```
-
-## Available Scripts
-
-| Command                | Description                                             |
-| ---------------------- | ------------------------------------------------------- |
-| `npm run dev`          | Start the Vite development server with HMR.             |
-| `npm run build`        | Type-check, then produce an optimized build in `dist/`. |
-| `npm run preview`      | Serve the production build locally.                     |
-| `npm run lint`         | Run ESLint with a zero-warning policy.                  |
-| `npm run format`       | Format the source with Prettier.                        |
-| `npm test`             | Run the Vitest suite once.                              |
-| `npm run test:watch`   | Run Vitest in watch mode.                               |
-| `npm run optimize:images` | Regenerate the portrait AVIF/WebP/JPG variants.      |
-| `npm run make:og`      | Regenerate the social share card (`public/og.png`).     |
-| `npm run make:thumbs`  | Regenerate project card thumbnails in `public/images/projects/`. |
-
-## Project Structure
-
-```text
 src/
-├── main.tsx                 # Application entry point
-├── App.tsx                  # Section composition + skip-to-content link
-├── styles/
-│   └── index.css            # Tailwind layers, base styles, light/dark tokens
-├── content/
-│   └── site.ts              # All copy and data (single source of truth)
+├── main.tsx                 # Entry point + PostHog init
+├── App.tsx                  # Section composition
+├── content/site.ts          # All copy & data (single source of truth)
 ├── lib/
-│   ├── anime.ts             # anime.js re-exports + reduced-motion guard
-│   ├── emailjs.ts           # EmailJS config (env vars + committed defaults)
-│   └── posthog.ts           # PostHog product analytics (explicit events)
+│   ├── anime.ts             # Animation utilities + reduced-motion guard
+│   └── posthog.ts           # Analytics config + event schema
 ├── hooks/
-│   ├── useTheme.ts          # Theme state synced to <html> + localStorage
-│   └── useTrackInView.ts    # Fire a callback once on scroll-into-view
-├── components/
-│   ├── Reveal.tsx           # Scroll-reveal wrapper (anime.js + IO)
-│   ├── ThemeToggle.tsx      # Animated light/dark switch
-│   ├── TerminalCard.tsx     # Reusable terminal mockup (traffic lights)
-│   ├── StatCounter.tsx      # Count-up stat animation
-│   ├── BackToTop.tsx        # Scroll-to-top control
-│   ├── ui/
-│   │   └── Section.tsx      # Section shell + documentation-style heading
-│   └── layout/
-│       ├── Header.tsx       # Sticky nav (terminal brand, theme, mobile menu)
-│       └── Footer.tsx
-└── features/                # One folder per page section
-    ├── hero/                # Animated "whoami" terminal + stats
-    ├── about/
-    ├── experience/          # Experience & focus timeline
-    ├── services/
-    ├── skills/              # Interactive terminal-style skill explorer
-    └── contact/             # Inverted dark CTA surface
-
-public/
-├── favicon-32.png           # Brand favicon (+ favicon-180 / icon-192 / icon-512)
-├── site.webmanifest
-├── og.png                   # 1200x630 social share card (run `npm run make:og`)
-├── robots.txt               # Crawl directives + sitemap pointer
-├── sitemap.xml              # Single-URL sitemap
-├── 404.html                 # Styled, theme-aware not-found page
-├── CNAME                    # Custom domain for GitHub Pages
-└── images/                  # Portrait + project thumbnails (projects/)
-
-DESIGN.md                    # Design-language reference (Ollama-inspired)
-_legacy/                     # Previous build artifact, retained for reference
+│   ├── useTheme.ts          # Theme state → <html> class + localStorage
+│   └── useTrackInView.ts    # IntersectionObserver → fire once on scroll
+├── components/              # Shared UI primitives
+└── features/                # Page sections: hero, about, experience,
+                             # projects, services, skills, contact
 ```
 
-## Editing Content
+**Guiding principles:**
+- **Content decoupled from presentation** — all text lives in `src/content/site.ts`
+- **Single source of truth** — design tokens in `tailwind.config.ts`, motion in `lib/anime.ts`
+- **Progressive enhancement** — content visible without JS; animations respect `prefers-reduced-motion`
+- **Mobile-first + fluid** — `clamp()` type scale, responsive utilities over fixed pixels
 
-All text, services, skills, and social links are defined in
-[`src/content/site.ts`](src/content/site.ts) as typed, exported objects.
-Updating a bio, adding a skill, or changing a link is a single-file edit that
-never requires modifying a component.
+## Key Features
+
+| Feature | Details |
+|---|---|
+| **Terminal UI** | Ollama-inspired `whoami` mockup with typing animation |
+| **Skill explorer** | Interactive category tabs with staggered chip reveal |
+| **Project cards** | Viewport-tracked impressions, GitHub/demo click analytics |
+| **Contact form** | Serverless email via Web3Forms (delivers to inbox directly) |
+| **Resume download** | Button in hero — drop PDF in `public/resume.pdf` |
+| **Dark/light theme** | Class-based toggle, no-FOUC inline script, persisted to localStorage |
+| **Analytics** | 12 custom events + autocapture + session recording + heatmaps |
+| **SEO** | JSON-LD Person + WebSite schema, OG tags, sitemap, robots.txt |
+
+## Content Editing
+
+All copy, projects, skills, and social links are in [`src/content/site.ts`](src/content/site.ts). Change text, add a project, or update a link without touching component code:
 
 ```ts
 // src/content/site.ts
 export const profile = {
-  fullName: "Mahnoor Zaffar",
-  role: "Full-Stack Web Developer & AI Engineer",
-  email: "1999mahnoor+developer@gmail.com",
-  // ...
+  firstName: "Mahnoor",
+  lastName: "Zaffar",
+  role: "Backend & AI Engineer",
+  email: "1999mahnoor@gmail.com",
+  resumeUrl: "/resume.pdf",
 };
 ```
 
-## Performance & Accessibility
-
-- **Lean bundle** — the production build is roughly 97 KB gzipped, with CSS
-  purged to the classes actually used.
-- **Layout stability** — the portrait declares explicit dimensions and an
-  `aspect-ratio`, and is served via `<picture>` with AVIF/WebP sources to
-  minimize Cumulative Layout Shift.
-- **Fonts** — self-hosted via Fontsource (variable, weight-axis only) and
-  bundled by Vite; no third-party CDN, with a `system-ui` fallback. The browser
-  downloads only the needed subsets via `unicode-range`.
-- **Images** — the portrait ships as AVIF/WebP/JPG (~36–65 KB, down from
-  1.6 MB) via `<picture>`, regenerated with `npm run optimize:images`.
-- **Accessibility** — semantic landmarks, a skip-to-content link, keyboard-
-  visible focus states, `aria` labelling on interactive controls, and full
-  `prefers-reduced-motion` support. Verified at Lighthouse Accessibility 100.
-
-## SEO & social
-
-- **Structured data** — a JSON-LD `Person` schema in
-  [`index.html`](index.html) helps search engines and recruiter tools parse the
-  profile.
-- **Discoverability** — [`public/robots.txt`](public/robots.txt) and
-  [`public/sitemap.xml`](public/sitemap.xml).
-- **Social card** — a 1200×630 [`public/og.png`](public/og.png) is referenced via
-  absolute-URL Open Graph / Twitter tags so links unfurl correctly on LinkedIn,
-  X, Slack, etc. Regenerate with `npm run make:og`.
-
 ## Analytics
 
-Product analytics via [PostHog](https://posthog.com), tracking explicit events
-only (no autocapture, no session replay). Configure it with `VITE_POSTHOG_KEY`
-(your `phc_...` project key) and optionally `VITE_POSTHOG_HOST` (defaults to the
-US cloud). See [`src/lib/posthog.ts`](src/lib/posthog.ts) for the event schema
-and [`src/vite-env.d.ts`](src/vite-env.d.ts) for the env types.
+PostHog tracks the full visitor funnel through 12 custom events:
 
-Tracked events:
+| Event | Captures |
+|---|---|
+| `portfolio_view` | Site load + UTM parameters |
+| `section_view` | Which sections visitors see (hero, about, experience, etc.) |
+| `project_view` | Project card impressions |
+| `github_click` / `demo_click` | External link clicks by location |
+| `contact_click` | Contact interaction by source |
+| `contact_form_sent` | Successful form submissions |
+| `resume_download` | Resume downloads |
+| `linkedin_click` | LinkedIn profile visits |
+| `skill_category_click` | Skill category interactions |
+| `theme_toggle` | Dark/light preference |
+| `back_to_top` | Scroll engagement |
 
-- `portfolio_view`, `project_view`
-- `github_click`, `demo_click`
-- `contact_click`, `resume_download`, `linkedin_click`
+Plus autocapture, session recordings, heatmaps, and scroll depth — all proxied through the own domain to bypass ad blockers.
 
-In CI, the key and host are injected at build time from the
-`VITE_POSTHOG_KEY` / `VITE_POSTHOG_HOST` repository secrets.
+## Performance
 
-## Résumé
-
-To surface a "Résumé ↓" button in the hero, drop a PDF in `public/` (e.g.
-`public/resume.pdf`) and set `profile.resumeUrl` in
-[`src/content/site.ts`](src/content/site.ts) to its path. Empty = hidden.
-
-## Testing
-
-[Vitest](https://vitest.dev) + React Testing Library (jsdom). Run `npm test`.
-Current coverage: `site.ts` content-shape validation, the contact form's
-validation behaviour, and the section-heading component.
-
-## Contact form (EmailJS)
-
-The contact form sends messages serverlessly via [EmailJS](https://www.emailjs.com).
-It needs three public (non-secret) values, configured in
-[`src/lib/emailjs.ts`](src/lib/emailjs.ts) from env vars:
-
-| Variable | Where to find it (EmailJS dashboard) |
-| --- | --- |
-| `VITE_EMAILJS_SERVICE_ID` | Email Services → your service |
-| `VITE_EMAILJS_TEMPLATE_ID` | Email Templates → your template |
-| `VITE_EMAILJS_PUBLIC_KEY` | Account → General → Public Key |
-
-The email template should reference these variables: `{{from_name}}`,
-`{{reply_to}}`, `{{message}}`.
-
-Because this is a static client app, these keys ship in the bundle either way,
-so committed defaults live in [`src/lib/emailjs.ts`](src/lib/emailjs.ts) and the
-form works out of the box in production. The env vars above are **optional
-overrides** for local testing or key rotation — copy [`.env.example`](.env.example)
-to `.env.local` and set them (a non-empty value wins over the default).
-
-**Abuse protection** comes from the domain allow-list in EmailJS → Account →
-Security (restricted to `mahnoorzaffar.dev`), not from key secrecy. If the
-config is ever cleared the form falls back to a pre-filled `mailto:` link.
+- **Bundle:** ~474 KB JS (157 KB gzipped), 28 KB CSS (8 KB gzipped)
+- **Fonts:** Self-hosted variable fonts (weight-axis only), no third-party CDN
+- **Images:** AVIF/WebP/JPG `<picture>` with explicit dimensions (zero CLS)
+- **Caching:** 1-year immutable headers for assets via Vercel config
+- **Lighthouse:** Accessibility 100
 
 ## Deployment
 
-The site is served as a static build and deployed to the custom domain in
-[`CNAME`](CNAME) (`www.mahnoorzaffar.dev`).
+Deployed on **Vercel** with custom domain `www.mahnoorzaffar.dev`.
 
-```bash
-npm run build      # outputs to dist/
-```
+**Config:** [`vercel.json`](vercel.json)
+- SPA routing (all paths → `index.html`)
+- PostHog proxy rewrites (`/ingest/*` → `us.i.posthog.com`)
+- Long-lived cache headers for assets
 
-Deploy the contents of `dist/` to any static host (e.g. GitHub Pages, Netlify,
-Vercel). The previous artifact build is preserved under `_legacy/` and tagged
-`deploy-snapshot-2026-06` for rollback.
+**DNS:** `CNAME` points to Vercel.
 
-## Roadmap
+## Scripts
 
-Shipped:
-
-- [x] **Projects** section — selected FinTech / HealthTech / AI work with live
-      demos, editable in `src/content/site.ts`.
-- [x] Serverless **contact form** via EmailJS (with a `mailto:` fallback).
-- [x] **SEO** — JSON-LD, `robots.txt`, `sitemap.xml`, and an OG share card.
-- [x] **Résumé** download button (`public/resume.pdf`).
-- [x] **Vitest** test suite (runs in CI before every deploy).
-- [x] **PostHog** product analytics (explicit events only).
-- [x] Project card **thumbnails** for all six featured projects.
-
-Optional follow-ups:
-
-- [ ] Front the domain with a CDN (e.g. Cloudflare) for long-lived asset caching
-      — the one remaining Lighthouse "cache lifetimes" note (GitHub Pages can't
-      set custom headers).
+| Command | Description |
+|---|---|
+| `npm run dev` | Vite dev server with HMR |
+| `npm run build` | Type-check + production build |
+| `npm run preview` | Serve production build locally |
+| `npm run lint` | ESLint (zero warnings) |
+| `npm run format` | Prettier |
+| `npm test` | Vitest suite |
+| `npm run test:watch` | Vitest watch mode |
+| `npm run optimize:images` | Regenerate portrait variants |
+| `npm run make:og` | Regenerate social share card |
+| `npm run make:thumbs` | Regenerate project thumbnails |
 
 ---
 
