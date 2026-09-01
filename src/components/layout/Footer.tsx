@@ -33,7 +33,7 @@ export function Footer() {
             </li>
           ))}
         </ul>
-        <p className="font-mono text-mute">Built with React · anime.js</p>
+        <p className="font-mono text-mute">Built with React · anime.js · Vercel</p>
       </div>
     </footer>
   );
